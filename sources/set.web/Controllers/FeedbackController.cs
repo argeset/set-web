@@ -18,12 +18,12 @@ namespace set.web.Controllers
         }
 
         [HttpPost, AllowAnonymous]
-        public async Task<JsonResult> New(string info)
+        public async Task<JsonResult> New(string message)
         {
             var model = new ResponseModel { IsOk = false };
             SetPleaseTryAgain(model);
 
-            if (string.IsNullOrWhiteSpace(info)) return Json(model, JsonRequestBehavior.DenyGet);
+            if (string.IsNullOrWhiteSpace(message)) return Json(model, JsonRequestBehavior.DenyGet);
 
             var email = string.Empty;
             if (User.Identity.IsAuthenticated)
@@ -31,7 +31,7 @@ namespace set.web.Controllers
                 email = User.Identity.GetEmail();
             }
 
-            model.IsOk = await _feedbackService.CreateFeedback(info, email);
+            model.IsOk = await _feedbackService.CreateFeedback(message, email);
 
             if (model.IsOk)
             {

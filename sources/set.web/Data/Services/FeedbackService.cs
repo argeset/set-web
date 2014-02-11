@@ -9,33 +9,31 @@ namespace set.web.Data.Services
 {
     public class FeedbackService : BaseService, IFeedbackService
     {
-        //public Task<bool> CreateFeedback(string info, string email)
-        //{
-        //    if (string.IsNullOrEmpty(info)) return Task.FromResult(false);
+        public Task<bool> CreateFeedback(string message, string email)
+        {
+            if (string.IsNullOrEmpty(message)) return Task.FromResult(false);
 
-        //    if (string.IsNullOrWhiteSpace(email))
-        //    {
-        //        email = ConstHelper.Anonymous;
-        //    }
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                email = ConstHelper.Anonymous;
+            }
 
-        //    var feedback = new Feedback
-        //    {
-        //        Id =Guid.NewGuid().ToNoDashString(),
-        //        Info = info,
-        //        Email = email
-        //    };
+            var feedback = new Feedback
+            {
+                Message = message,
+                Email = email
+            };
 
-        //    var user = _context.Set<User>().FirstOrDefault(x => x.Email == email);
-        //    if (user != null)
-        //    {
-        //        feedback.IsAnonymous = true;
-        //        feedback.CreatedBy = user.Id;
-        //    }
+            var user = _context.Set<User>().FirstOrDefault(x => x.Email == email);
+            if (user != null)
+            {
+                feedback.CreatedBy = user.Id;
+            }
 
-        //    _context.Set<Feedback>().Add(feedback);
+            _context.Set<Feedback>().Add(feedback);
 
-        //    return Task.FromResult(_context.SaveChanges() > 0);
-        //}
+            return Task.FromResult(_context.SaveChanges() > 0);
+        }
 
         public Task<bool> CreateContactMessage(string subject, string email, string message)
         {
@@ -58,11 +56,6 @@ namespace set.web.Data.Services
             return Task.FromResult(_context.SaveChanges() > 0);
         }
 
-        public Task<bool> CreateFeedback(string info, string email)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<bool> ChangeStatus(string feedBackId, bool isActive)
         {
             throw new NotImplementedException();
@@ -71,7 +64,7 @@ namespace set.web.Data.Services
 
     public interface IFeedbackService
     {
-        Task<bool> CreateFeedback(string info, string email);
+        Task<bool> CreateFeedback(string message, string email);
         Task<bool> CreateContactMessage(string subject, string email, string message);
         Task<bool> ChangeStatus(string feedBackId, bool isActive);
     }
