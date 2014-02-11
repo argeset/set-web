@@ -1,4 +1,5 @@
 ﻿using System;
+using set.web.Helpers;
 
 namespace set.web.Data.Entities
 {
@@ -9,6 +10,7 @@ namespace set.web.Data.Entities
             CreatedAt = UpdatedAt = DateTime.Now;
             IsDeleted = false;
             IsActive = true;
+            Id = Guid.NewGuid().ToNoDashString();
         }
 
         public string Id { get; set; }

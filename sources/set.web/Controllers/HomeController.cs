@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using set.web.Data.Services;
@@ -18,7 +19,7 @@ namespace set.web.Controllers
             _feedbackService = feedbackService;
         }
 
-        
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -47,8 +48,7 @@ namespace set.web.Controllers
                 return View(model);
             }
 
-            //todo send via service
-            model.IsOk = true;
+            model.IsOk = _feedbackService.CreateContactMessage(model.Subject, model.Email, model.Message).Result;
 
             if (model.IsOk)
             {

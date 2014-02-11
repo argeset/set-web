@@ -38,11 +38,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net">
+      <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor">
       <HintPath>..\packages\Castle.Windsor.3.2.1\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="GravatarHelper">
       <HintPath>..\packages\GravatarHelper.3.2.2\lib\Net40\GravatarHelper.dll</HintPath>
@@ -98,6 +107,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\SetWeb.mdf" />
+    <Content Include="App_Data\SetWeb_log.ldf">
+      <DependentUpon>SetWeb.mdf</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -132,6 +145,8 @@
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Data\Entities\Contact.cs" />
+    <Compile Include="Data\Entities\PagedList.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,10 +158,18 @@
     <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\NameValue.cs" />
     <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\Services\BaseService.cs" />
     <Compile Include="Data\Entities\BaseEntity.cs" />
     <Compile Include="Data\Services\FeedbackService.cs" />
+    <Compile Include="Data\Services\BaseService.cs" />
+    <Compile Include="Data\Entities\Feedback.cs" />
+    <Compile Include="Data\Entities\User.cs" />
+    <Compile Include="Data\SetDbContext.cs" />
+    <Compile Include="Data\SetDbInitializer.cs" />
+    <Compile Include="Data\SetDbMigrationConfiguration.cs" />
+    <Compile Include="Data\Services\FormsAuthenticationService.cs" />
+    <Compile Include="Data\Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
