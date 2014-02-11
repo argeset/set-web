@@ -8,7 +8,7 @@ using set.web.Helpers;
 
 namespace set.web.Controllers
 {
-    public class UserController  : BaseController
+    public class UserController : BaseController
     {
         private readonly IFormsAuthenticationService _formsAuthenticationService;
 
@@ -17,7 +17,19 @@ namespace set.web.Controllers
             _formsAuthenticationService = formsAuthenticationService;
         }
 
-       
+
+
+        [HttpGet]
+        public ActionResult New()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
         [HttpGet]
         public ActionResult Logout()

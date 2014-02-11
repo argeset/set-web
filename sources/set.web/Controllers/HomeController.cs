@@ -14,5 +14,10 @@ namespace set.web.Controllers
         {
             return View();
         }
-	}
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
+    }
 }
