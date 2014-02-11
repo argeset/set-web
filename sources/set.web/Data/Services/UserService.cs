@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using GravatarHelper;
 using set.web.Data.Entities;
 using set.web.Helpers;
 using set.web.Models;
@@ -13,13 +14,13 @@ namespace set.web.Data.Services
         {
             if (!model.IsValid()) return Task.FromResult(false);
 
-            //var img = GravatarHelper.GetGravatarURL(model.Email);
+            var img = GravatarHelper.GravatarHelper.CreateGravatarUrl(model.Email, 35, string.Empty, GravatarRating.PG, false, false);
             var user = new User
             {
                 Email = model.Email,
                 Name = model.Name,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
-                //ImageUrl = img,
+                ImageUrl = img,
                 RoleId = ConstHelper.BasicRoles[roleName],
                 RoleName = roleName,
                 IsActive = true,

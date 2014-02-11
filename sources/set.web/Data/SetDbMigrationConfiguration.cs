@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using GravatarHelper;
 using set.web.Data.Entities;
 using set.web.Helpers;
 
@@ -37,7 +38,7 @@ namespace set.web.Data
                 Name = name,
                 RoleId = ConstHelper.BasicRoles[role],
                 RoleName = role,
-                //ImageUrl = GravatarHelper.GetGravatarURL(email),
+                ImageUrl = GravatarHelper.GravatarHelper.CreateGravatarUrl(email, 35, string.Empty, GravatarRating.PG, false, false),
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("password"),
                 LastLoginAt = DateTime.Now,
                 IsActive = true,
