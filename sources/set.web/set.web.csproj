@@ -107,6 +107,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\User\New.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Shared\_Msg.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -137,7 +138,9 @@
     <Compile Include="Helpers\ConstHelper.cs" />
     <Compile Include="Helpers\IdentityHelper.cs" />
     <Compile Include="Helpers\LocalizationHelper.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\NameValue.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
