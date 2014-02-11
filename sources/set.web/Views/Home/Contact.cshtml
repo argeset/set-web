@@ -2,21 +2,21 @@
     <div class="row">
 
         <div class="col-md-12">
-            <form role="form">
-                
+            <form id="frm" role="form">
+
                 <div class="form-group">
                     <label for="Name">@Html.LocalizationString("name")</label>
-                    <input type="text" class="form-control" id="Name" placeholder="@Html.LocalizationString("full_name")">
+                    <input type="text" class="form-control" id="Name" placeholder="@Html.LocalizationString("full_name")" required>
                 </div>
 
                 <div class="form-group">
                     <label for="Email">@Html.LocalizationString("email")</label>
-                    <input type="text" class="form-control" id="Email" placeholder="@Html.LocalizationString("enter_email")">
+                    <input type="email" class="form-control" id="Email" placeholder="@Html.LocalizationString("enter_email")" required>
                 </div>
 
                 <div class="form-group">
                     <label for="Msg">@Html.LocalizationString("message")</label>
-                    <textarea id="Msg" rows="6" placeholder="@Html.LocalizationString("your_message")" class="form-control"></textarea>
+                    <textarea id="Msg" rows="6" placeholder="@Html.LocalizationString("your_message")" class="form-control" required></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-default">@Html.LocalizationString("submit")</button>
