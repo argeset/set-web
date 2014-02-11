@@ -40,7 +40,7 @@ namespace set.web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
-        public ActionResult Contact(ContactModel model)
+        public async Task<ActionResult> Contact(ContactModel model)
         {
             if (!model.IsValid())
             {
@@ -48,7 +48,7 @@ namespace set.web.Controllers
                 return View(model);
             }
 
-            model.IsOk = _feedbackService.CreateContactMessage(model.Subject, model.Email, model.Message).Result;
+            model.IsOk = await _feedbackService.CreateContactMessage(model.Subject, model.Email, model.Message);
 
             if (model.IsOk)
             {

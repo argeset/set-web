@@ -55,17 +55,11 @@ namespace set.web.Data.Services
 
             return Task.FromResult(_context.SaveChanges() > 0);
         }
-
-        public Task<bool> ChangeStatus(string feedBackId, bool isActive)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public interface IFeedbackService
     {
         Task<bool> CreateFeedback(string message, string email);
         Task<bool> CreateContactMessage(string subject, string email, string message);
-        Task<bool> ChangeStatus(string feedBackId, bool isActive);
     }
 }
