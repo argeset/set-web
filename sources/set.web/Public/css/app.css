@@ -6,11 +6,11 @@
 #feedback {
     position: fixed;
     top: 35%;
-    right: 0;
+    left: 0;
     height: 0;
     text-align: right;
     z-index: 9999;
-    margin-right: -85px;
+    margin-left: -85px;
 }
 
     #feedback button {
