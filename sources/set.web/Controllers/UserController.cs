@@ -63,6 +63,23 @@ namespace set.web.Controllers
             return View(model);
         }
 
+        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
+        public async Task<ActionResult> Reset(ResetModel model)
+        {
+
+            if (!model.IsValid())
+            {
+                //todo: locale stringler gelecek
+                model.Msg = "Bilgileri eksiksiz doldurunuz.";
+                return View(model);
+            }
+
+            var user = await _userService.GetByEmail(model.Email);
+            //todo: parola sıfırlama maili gönderilir.
+
+            return Redirect("/user/login");
+        }
+
         [HttpGet, AllowAnonymous]
         public ActionResult Login()
         {

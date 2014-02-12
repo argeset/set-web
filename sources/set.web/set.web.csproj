@@ -121,6 +121,7 @@
     <Content Include="Views\User\New.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\_Msg.cshtml" />
+    <Content Include="Views\User\Reset.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

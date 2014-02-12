@@ -1,0 +1,32 @@
+﻿@model ResetModel
+
+@{
+    ViewBag.Title = Html.LocalizationString("password_reset_title"); ;
+}
+
+<div class="container" role="main">
+
+    <div class="row">
+        <div class="col-md-5">
+            <h3>@ViewBag.Title</h3>
+            <hr />
+
+            <form method="post">
+                <div class="form-group">
+                    <label for="Email">@Html.LocalizationString("email")</label>
+                    <input type="email" id="Email" name="Email" class="form-control" required value="@Model.Email" />
+                </div>
+
+                @Html.AntiForgeryToken()
+
+                <button type="submit" class="btn btn-default">@Html.LocalizationString("btn_password_reset")</button>
+
+                <div class="error">
+                    @Model.Msg
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
