@@ -1,6 +1,6 @@
 ﻿namespace set.web.Data.Entities
 {
-    public class Contact : BaseEntity
+    public class ContactMessage : BaseEntity
     {
         public string Email { get; set; }
         public string Subject { get; set; }

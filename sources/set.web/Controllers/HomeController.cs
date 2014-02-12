@@ -29,7 +29,7 @@ namespace set.web.Controllers
         [HttpGet, AllowAnonymous]
         public ViewResult Contact()
         {
-            var model = new ContactModel();
+            var model = new ContactMessageModel();
 
             if (User.Identity.IsAuthenticated)
             {
@@ -40,7 +40,7 @@ namespace set.web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
-        public async Task<ActionResult> Contact(ContactModel model)
+        public async Task<ActionResult> Contact(ContactMessageModel model)
         {
             if (!model.IsValid())
             {

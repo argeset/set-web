@@ -2,7 +2,7 @@
 
 namespace set.web.Models
 {
-    public class ContactModel : BaseModel
+    public class ContactMessageModel : BaseModel
     {
         public string Email { get; set; }
         public string Subject { get; set; }

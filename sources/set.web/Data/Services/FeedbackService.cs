@@ -37,7 +37,7 @@ namespace set.web.Data.Services
 
         public Task<bool> CreateContactMessage(string subject, string email, string message)
         {
-            var contact = new Contact
+            var contact = new ContactMessage
             {
                 Subject = subject,
                 Email = email,
@@ -51,7 +51,7 @@ namespace set.web.Data.Services
                 contact.CreatedBy = user.Id;
             }
 
-            _context.Set<Contact>().Add(contact);
+            _context.Set<ContactMessage>().Add(contact);
 
             return Task.FromResult(_context.SaveChanges() > 0);
         }
