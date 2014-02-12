@@ -23,7 +23,7 @@ namespace set.web.Controllers
         [HttpGet, AllowAnonymous]
         public ActionResult New()
         {
-            return View();
+            return View(new UserModel());
         }
 
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
@@ -64,7 +64,7 @@ namespace set.web.Controllers
         [HttpGet, AllowAnonymous]
         public ActionResult Login()
         {
-            return View();
+            return View(new LoginModel());
         }
 
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]

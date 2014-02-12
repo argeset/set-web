@@ -35,7 +35,7 @@ namespace set.web.Configurations
                         requestContext.HttpContext.Request.Path));
             }
 
-            return (IController) _kernel.Resolve(controllerType);
+            return (IController)_kernel.Resolve(controllerType);
         }
     }
 
@@ -56,7 +56,7 @@ namespace set.web.Configurations
         {
             container.Register(
                 Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>().LifestylePerWebRequest(),
-               
+                Component.For<IUserService>().ImplementedBy<UserService>().LifestylePerWebRequest(),
                 Component.For<IFeedbackService>().ImplementedBy<FeedbackService>().LifestylePerWebRequest());
         }
     }
