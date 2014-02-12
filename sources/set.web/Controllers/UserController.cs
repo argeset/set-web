@@ -31,7 +31,8 @@ namespace set.web.Controllers
         {
             if (!model.IsValidForNewDeveloper())
             {
-                model.Msg = "bir sorun oluştu";
+                //todo: locale stringler gelecek
+                model.Msg = "Bilgileri eksiksiz doldurunuz.";
                 return View(model);
             }
 
@@ -39,13 +40,14 @@ namespace set.web.Controllers
             var status = await _userService.Create(model, ConstHelper.User);
             if (!status)
             {
-                model.Msg = "bir sorun oluştu";
+                //todo: locale stringler gelecek
+                model.Msg = "Kayıt işlemi başarısız.";
                 return View(model);
             }
 
             _formsAuthenticationService.SignIn(model.Id, model.Name, model.Email, ConstHelper.User, true);
 
-            return Redirect("/user/apps");
+            return Redirect("/");
         }
 
         [HttpGet, AllowAnonymous]
