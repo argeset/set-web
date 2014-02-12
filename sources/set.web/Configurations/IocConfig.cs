@@ -57,7 +57,8 @@ namespace set.web.Configurations
             container.Register(
                 Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>().LifestylePerWebRequest(),
                 Component.For<IUserService>().ImplementedBy<UserService>().LifestylePerWebRequest(),
-                Component.For<IFeedbackService>().ImplementedBy<FeedbackService>().LifestylePerWebRequest());
+                Component.For<IFeedbackService>().ImplementedBy<FeedbackService>().LifestylePerWebRequest(),
+                Component.For<IDomainObjectService>().ImplementedBy<DomainObjectService>().LifestylePerWebRequest());
         }
     }
 }

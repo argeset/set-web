@@ -18,6 +18,7 @@ namespace set.web.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<DomainObject> DomainObjects { get; set; }
 
     }
 }
