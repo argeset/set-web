@@ -25,13 +25,13 @@ namespace set.web.Controllers
             return View();
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public ActionResult New()
         {
             return View(new DomainObjectModel());
         }
 
-        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> New(DomainObjectModel model)
         {
             if (!model.IsValid())
@@ -52,7 +52,7 @@ namespace set.web.Controllers
             return View(model);
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public async Task<ViewResult> List(int id = 1)
         {
             var result = await _domainObjectService.GetDomainObjects(id);
