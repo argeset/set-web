@@ -1,1 +1,34 @@
-﻿
+﻿@model LoginModel
+
+@{
+    ViewBag.Title = Html.LocalizationString("login_view_title");
+}
+
+<div class="container" role="main">
+    
+    <div class="row">
+        <div class="col-md-5">
+            <h3>@ViewBag.Title</h3>
+            <hr />
+
+            <form action="/user/login?ReturnUrl=@Request.QueryString["ReturnUrl"]" method="post">
+                <div class="form-group">
+                    <label for="Email">@Html.LocalizationString("email")</label>
+                    <input type="email" id="Email" name="Email" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Password">@Html.LocalizationString("password")</label>
+                    <input type="password" class="form-control" id="Password" required>
+                </div>
+
+                @Html.AntiForgeryToken()
+                
+                <button type="submit" class="btn btn-default">@Html.LocalizationString("btn_login")</button>
+                <a style="margin-left: 10px;" href="/user/reset">@Html.LocalizationString("forgot_your_password")</a>
+            </form>
+
+        </div>
+    </div>
+
+</div>

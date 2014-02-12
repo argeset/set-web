@@ -20,6 +20,14 @@ namespace set.web.Models
                    && Email.IsEmail();
         }
 
+        public bool IsValidForNewDeveloper()
+        {
+            return !string.IsNullOrEmpty(Password)
+                   && !string.IsNullOrEmpty(Email)
+                   && !string.IsNullOrEmpty(Name)
+                   && Email.IsEmail();
+        }
+
         public bool IsValid()
         {
             return !string.IsNullOrEmpty(Password)
