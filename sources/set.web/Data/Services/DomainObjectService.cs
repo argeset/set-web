@@ -11,7 +11,7 @@ namespace set.web.Data.Services
         public Task<bool> Create(string name, string email)
         {
             var model = new DomainObject() { Name = name };
-            
+
             var user = _context.Set<User>().FirstOrDefault(x => x.Email == email);
             if (user != null)
                 model.CreatedBy = user.Id;
@@ -23,9 +23,7 @@ namespace set.web.Data.Services
         public Task<PagedList<DomainObject>> GetDomainObjects(int pageNumber)
         {
             if (pageNumber < 1)
-            {
                 pageNumber = 1;
-            }
 
             var query = _context.Set<DomainObject>();
 
@@ -37,7 +35,7 @@ namespace set.web.Data.Services
 
         public Task<List<DomainObject>> GetAll()
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(new List<DomainObject>(_context.Set<DomainObject>()));
         }
 
         public Task<List<DomainObject>> Search(string key)

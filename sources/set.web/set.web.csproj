@@ -123,6 +123,7 @@
     <Content Include="Views\Shared\_Msg.cshtml" />
     <Content Include="Views\User\Reset.cshtml" />
     <Content Include="Views\DomainObject\New.cshtml" />
+    <Content Include="Views\DomainObject\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -164,6 +165,7 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\ContactMessageModel.cs" />
     <Compile Include="Models\NameValue.cs" />
+    <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\ResetModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\SearchResult.cs" />

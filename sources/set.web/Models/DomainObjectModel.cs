@@ -1,4 +1,6 @@
-﻿namespace set.web.Models
+﻿using set.web.Data.Entities;
+
+namespace set.web.Models
 {
     public class DomainObjectModel : BaseModel
     {
@@ -7,6 +9,15 @@
         internal bool IsValid()
         {
             return !string.IsNullOrEmpty(Name);
+        }
+
+        public static DomainObjectModel MapEntityToModel(DomainObject entity)
+        {
+            var model = new DomainObjectModel
+            {
+                Name = entity.Name
+            };
+            return model;
         }
     }
 }

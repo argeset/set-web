@@ -1,0 +1,60 @@
+﻿@model PageModel<DomainObjectModel>
+
+@{
+    ViewBag.Title = Html.LocalizationString("domainobject_listing_title");
+}
+
+<div class="row">
+    <h3>@ViewBag.Title</h3>
+    <hr />
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.LocalizationString("name")</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyModelItems">
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    @{
+                        if (Model.HasNextPage || Model.HasPreviousPage)
+                        {
+                            <tr>
+                                <td colspan="4" align="center">
+                                    <ul class="pagination">
+                                        @if (Model.HasPreviousPage)
+                                        {
+                                            <li><a id="prevPage" href="~/domainobject/list/@(Model.Number-1)">&laquo;</a></li>
+                                        }
+                                        <li><a href="~/domainobject/list/@(Model.Number)">@(Model.Number)</a></li>
+                                        @if (Model.HasNextPage)
+                                        {
+                                            <li><a id="nextPage" href="~/domainobject/list/@(Model.Number+1)">&raquo;</a></li>
+                                        }
+                                    </ul>
+                                    <br />
+                                    <span class="label label-primary">@Html.LocalizationString("total_page_count") : @Model.TotalPageCount</span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+
+</div>

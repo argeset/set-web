@@ -52,5 +52,22 @@ namespace set.web.Controllers
             return View(model);
         }
 
+        [HttpGet, AllowAnonymous]
+        public async Task<ViewResult> List(int id = 1)
+        {
+            var result = await _domainObjectService.GetDomainObjects(id);
+            var list = result.Items.Select(DomainObjectModel.MapEntityToModel).ToList();
+            var model = new PageModel<DomainObjectModel>
+            {
+                Items = list,
+                HasNextPage = result.HasNextPage,
+                HasPreviousPage = result.HasPreviousPage,
+                Number = result.Number,
+                TotalCount = result.TotalCount,
+                TotalPageCount = result.TotalPageCount
+            };
+            return View(model);
+        }
+
     }
 }
