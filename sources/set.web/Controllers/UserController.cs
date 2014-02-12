@@ -73,6 +73,7 @@ namespace set.web.Controllers
 
             if (!model.IsValid())
             {
+                //todo: locale stringler gelecek
                 model.Msg = "Bilgileri eksiksiz doldurunuz.";
                 return View(model);
             }
@@ -80,6 +81,7 @@ namespace set.web.Controllers
             var authenticated = await _userService.Authenticate(model.Email, model.Password);
             if (!authenticated)
             {
+                //todo: locale stringler gelecek
                 model.Msg = "Hatalı email yada parola";
                 return View(model);
             }
