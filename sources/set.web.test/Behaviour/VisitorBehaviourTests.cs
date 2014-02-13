@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -97,9 +98,9 @@ namespace set.web.test.Behaviour
         {
             //arrange
             var controllerContext = new Mock<ControllerContext>();
-            
+
             var httpContext = new Mock<HttpContextBase>();
-            
+
             var httpRequest = new Mock<HttpRequestBase>();
             var httpResponse = new Mock<HttpResponseBase>();
 
@@ -107,7 +108,7 @@ namespace set.web.test.Behaviour
 
             httpContext.Setup(x => x.Request).Returns(httpRequest.Object);
             httpContext.Setup(x => x.Response).Returns(httpResponse.Object);
-            
+
             httpResponse.Setup(x => x.SetCookie(It.IsAny<HttpCookie>()));
 
             //act
@@ -126,9 +127,26 @@ namespace set.web.test.Behaviour
         }
 
         [Test]
-        public void any_visitor_can_search()
+        public async void any_visitor_can_search()
         {
-            
+            //arrange 
+            const string text = "search_text";
+
+            var searchService = new Mock<ISearchService>();
+            searchService.Setup(x => x.Query(text)).Returns(Task.FromResult(new List<SearchResult> { new SearchResult { Name = text } }));
+
+            //act
+            var sut = new SearchControllerBuilder().WithSearchService(searchService.Object)
+                                                   .Build();
+
+            var result = await sut.Query(text);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.IsAssignableFrom<JsonResult>(result);
+
+            sut.AssertGetAttribute(ACTION_QUERY, new[] { typeof(string) });
+            sut.AssertAllowAnonymousAttribute(ACTION_QUERY, new[] { typeof(string) });
 
         }
     }

@@ -16,7 +16,8 @@ namespace set.web.test.Shared
         public const string ACTION_PASSWORD_RESET = "PasswordReset";
         public const string ACTION_PASSWORD_CHANGE = "PasswordChange";
         public const string ACTION_CHANGE = "Change";
-
+        public const string ACTION_QUERY = "Query";
+        
         public const string EMAIL = "test@test.com";
         public const string PASSWORD = "pass";
         public const string NAME = "name";
