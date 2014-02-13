@@ -45,6 +45,7 @@ namespace set.web.Controllers
             if (!model.IsButtonSaveAndNew) return RedirectToAction("List");
 
             model.IsOk = true;
+            model.Name = string.Empty;
             model.Msg = SetHtmlHelper.LocalizationString("data_saved_successfully_msg");
             return View(model);
         }
