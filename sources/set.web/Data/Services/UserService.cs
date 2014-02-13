@@ -24,6 +24,7 @@ namespace set.web.Data.Services
             var img = model.Email.ToGravatar();
             var user = new User
             {
+                Id = model.Id,
                 Email = model.Email,
                 Name = model.Name,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password, 15),
@@ -108,7 +109,7 @@ namespace set.web.Data.Services
 
             if (user == null) return Task.FromResult(false);
 
-            if(user.PasswordResetRequestedAt != null 
+            if (user.PasswordResetRequestedAt != null
                && user.PasswordResetRequestedAt.Value.AddMinutes(-1) > DateTime.Now) return Task.FromResult(false);
 
             var token = Guid.NewGuid().ToNoDashString();

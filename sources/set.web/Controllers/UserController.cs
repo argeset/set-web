@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -49,6 +50,7 @@ namespace set.web.Controllers
             }
 
             model.Language = Thread.CurrentThread.CurrentUICulture.Name;
+            model.Id = Guid.NewGuid().ToNoDashString();
             var status = await _userService.Create(model, ConstHelper.User);
             if (!status)
             {
