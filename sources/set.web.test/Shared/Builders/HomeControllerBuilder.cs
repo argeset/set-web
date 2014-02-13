@@ -5,7 +5,7 @@ using set.web.Data.Services;
 
 namespace set.web.test.Shared.Builders
 {
-    public class HomeControllerBuilder
+    public class HomeControllerBuilder : BaseBuilder
     {
         private IFeedbackService _feedbackService; 
 

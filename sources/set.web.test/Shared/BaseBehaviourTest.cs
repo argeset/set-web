@@ -13,14 +13,15 @@ namespace set.web.test.Shared
         public const string ACTION_LOGOUT = "Logout";
         public const string ACTION_NEW = "New";
         public const string ACTION_CONTACT = "Contact";
-        public const string ACTION_PASSWORDRESET = "PasswordReset";
-        public const string ACTION_PASSWORDCHANGE = "PasswordChange";
+        public const string ACTION_PASSWORD_RESET = "PasswordReset";
+        public const string ACTION_PASSWORD_CHANGE = "PasswordChange";
+        public const string ACTION_CHANGE = "Change";
 
         public const string EMAIL = "test@test.com";
         public const string PASSWORD = "pass";
         public const string NAME = "name";
 
-        #region "ValidModels"
+        #region Valid Models
 
         public static readonly ContactMessageModel ValidContactMessageModel = new ContactMessageModel
                 {
@@ -58,7 +59,7 @@ namespace set.web.test.Shared
 
         #endregion
 
-        #region "ValidEntities"
+        #region Valid Entities
         
         public static readonly User ValidUserEntity = new User
         {

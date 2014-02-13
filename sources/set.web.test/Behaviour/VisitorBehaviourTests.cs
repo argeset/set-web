@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 using Moq;
@@ -91,6 +92,44 @@ namespace set.web.test.Behaviour
             sut.AssertAllowAnonymousAttribute(ACTION_CONTACT, new[] { typeof(ContactMessageModel) });
         }
 
-        public void any_visitor_can_search() { }
+        [Test]
+        public void any_visitor_can_change_language()
+        {
+            //arrange
+            var controllerContext = new Mock<ControllerContext>();
+            
+            var httpContext = new Mock<HttpContextBase>();
+            
+            var httpRequest = new Mock<HttpRequestBase>();
+            var httpResponse = new Mock<HttpResponseBase>();
+
+            controllerContext.Setup(x => x.HttpContext).Returns(httpContext.Object);
+
+            httpContext.Setup(x => x.Request).Returns(httpRequest.Object);
+            httpContext.Setup(x => x.Response).Returns(httpResponse.Object);
+            
+            httpResponse.Setup(x => x.SetCookie(It.IsAny<HttpCookie>()));
+
+            //act
+            var sut = new LangControllerBuilder().Build();
+            sut.ControllerContext = controllerContext.Object;
+
+            var view = sut.Change(ConstHelper.tr);
+
+            //assert
+            Assert.NotNull(view);
+
+            sut.AssertGetAttribute(ACTION_CHANGE, new[] { typeof(string) });
+            sut.AssertAllowAnonymousAttribute(ACTION_CHANGE, new[] { typeof(string) });
+
+            httpResponse.Verify(x => x.SetCookie(It.IsAny<HttpCookie>()), Times.AtLeastOnce);
+        }
+
+        [Test]
+        public void any_visitor_can_search()
+        {
+            
+
+        }
     }
 }

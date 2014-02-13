@@ -86,8 +86,8 @@ namespace set.web.test.Behaviour
 
             userService.Verify(x => x.RequestPasswordReset(ValidPasswordResetModel.Email), Times.Once);
 
-            sut.AssertPostAttribute(ACTION_PASSWORDRESET, new[] {typeof (PasswordResetModel)});
-            sut.AssertAllowAnonymousAttribute(ACTION_PASSWORDRESET, new[] { typeof(PasswordResetModel) });
+            sut.AssertPostAttribute(ACTION_PASSWORD_RESET, new[] {typeof (PasswordResetModel)});
+            sut.AssertAllowAnonymousAttribute(ACTION_PASSWORD_RESET, new[] { typeof(PasswordResetModel) });
         }
 
         [Test]
@@ -109,8 +109,8 @@ namespace set.web.test.Behaviour
 
             userService.Verify(x => x.ChangePassword(ValidPasswordChangeModel.Email, ValidPasswordChangeModel.Token, ValidPasswordChangeModel.Password), Times.Once);
 
-            sut.AssertPostAttributeWithOutAntiForgeryToken(ACTION_PASSWORDCHANGE, new[] { typeof(PasswordChangeModel) });
-            sut.AssertAllowAnonymousAttribute(ACTION_PASSWORDCHANGE, new[] { typeof(PasswordChangeModel) });
+            sut.AssertPostAttributeWithOutAntiForgeryToken(ACTION_PASSWORD_CHANGE, new[] { typeof(PasswordChangeModel) });
+            sut.AssertAllowAnonymousAttribute(ACTION_PASSWORD_CHANGE, new[] { typeof(PasswordChangeModel) });
         }
     }
 }
