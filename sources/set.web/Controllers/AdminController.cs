@@ -16,7 +16,9 @@ namespace set.web.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (User.Identity.GetRoleName() != ConstHelper.Admin)
-                RedirectToHome();
+            {
+                filterContext.Result = RedirectToHome();
+            }
 
             base.OnActionExecuting(filterContext);
         }
