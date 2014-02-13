@@ -31,6 +31,8 @@ namespace set.web.test.Shared
         {
             LogOut();
 
+            GoTo(string.Format("{0}{1}", BASE_URL, ACTION_LOGIN));
+
             Browser.FindElementById("Email").SendKeys("user@test.com");
             Browser.FindElementById("Password").SendKeys("password");
             Browser.FindElementById("frm").Submit();

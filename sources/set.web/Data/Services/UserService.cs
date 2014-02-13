@@ -59,7 +59,7 @@ namespace set.web.Data.Services
         {
             if (string.IsNullOrEmpty(userId)) return null;
 
-            var user = Context.Set<User>().FirstOrDefault(x => x.Id == userId);
+            var user = Context.Set<User>().FirstOrDefault(x => x.Id == userId && !x.IsDeleted);
             return Task.FromResult(user);
         }
 
@@ -67,7 +67,7 @@ namespace set.web.Data.Services
         {
             if (!email.IsEmail()) return null;
 
-            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email);
+            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email && !x.IsDeleted);
             return Task.FromResult(user);
         }
 
@@ -76,7 +76,7 @@ namespace set.web.Data.Services
         {
             if (!email.IsEmail() || string.IsNullOrEmpty(password)) return Task.FromResult(false);
 
-            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email);
+            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email && x.IsActive && !x.IsDeleted);
             if (user == null) return Task.FromResult(false);
 
             var result = false;
