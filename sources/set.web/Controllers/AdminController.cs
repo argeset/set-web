@@ -72,12 +72,42 @@ namespace set.web.Controllers
             return View(model);
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<JsonResult> ChangeUserStatus(string id, bool isActive)
+        {
+            var model = new ResponseModel { IsOk = false };
+            if (string.IsNullOrEmpty(id))
+            {
+                return Json(model, JsonRequestBehavior.DenyGet);
+            }
+
+            model.IsOk = await _userService.ChangeStatus(id, isActive);
+            return Json(model, JsonRequestBehavior.DenyGet);
+        }
+
         [HttpGet]
         public async Task<ViewResult> Feedbacks(int id = 1)
         {
             var result = await _feedbackService.GetFeedbacks(id);
             var list = result.Items.Select(FeedbackModel.Map).ToList();
             var model = new PageModel<FeedbackModel>
+            {
+                Items = list,
+                HasNextPage = result.HasNextPage,
+                HasPreviousPage = result.HasPreviousPage,
+                Number = result.Number,
+                TotalCount = result.TotalCount,
+                TotalPageCount = result.TotalPageCount
+            };
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<ViewResult> ContactMessages(int id = 1)
+        {
+            var result = await _feedbackService.GetContactMessages(id);
+            var list = result.Items.Select(ContactMessageModel.Map).ToList();
+            var model = new PageModel<ContactMessageModel>
             {
                 Items = list,
                 HasNextPage = result.HasNextPage,

@@ -94,12 +94,35 @@
             var textActivate = "@Html.LocalizationString("btn_activate")";
             var textDeactivate = "@Html.LocalizationString("btn_deactivate")";
 
+            var textBtnDanger = "btn-danger";
+            var textBtnSuccess = "btn-success";
+            var textId = "id";
+            var textIsActive = "isactive";
+
+            $(".btnAction").click(function () {
+                var textBtn = "#btnModalAction";
+
+                var id = $(this).data(textId);
+                var isActive = $(this).data(textIsActive);
+
+                console.log(isActive);
+
+                $(textBtn).removeClass(textBtnDanger).removeClass(textBtnSuccess);
+                if (isActive == "True") {
+                    $(textBtn).addClass(textBtnDanger);
+                } else {
+                    $(textBtn).addClass(textBtnSuccess);
+                }
+
+                $(textBtn).data(textId, id).data(textIsActive, isActive);
+            });
+
             $("#btnModalAction").click(function () {
                 var id = $(this).data("id");
                 var isActive = $(this).data("isactive");
 
                 $.ajax({
-                    url: "/User/ChangeStatus",
+                    url: "/Admin/ChangeUserStatus",
                     type: "POST",
                     data: "id=" + id + "&isActive=" + isActive + "&__RequestVerificationToken=" + $('input[name="__RequestVerificationToken"]').val()
                 }).done(function (r) {

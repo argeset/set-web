@@ -33,19 +33,6 @@ namespace set.web.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<JsonResult> ChangeStatus(string id, bool isActive)
-        {
-            var model = new ResponseModel { IsOk = false };
-            if (string.IsNullOrEmpty(id))
-            {
-                return Json(model, JsonRequestBehavior.DenyGet);
-            }
-
-            model.IsOk = await _userService.ChangeStatus(id, isActive);
-            return Json(model, JsonRequestBehavior.DenyGet);
-        }
-
         #region Membership
         [HttpGet, AllowAnonymous]
         public ActionResult New()
