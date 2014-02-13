@@ -14,12 +14,25 @@ namespace set.web.test.Interface
          TestCase(ACTION_LOGOUT),
          TestCase(ACTION_SIGNUP),
          TestCase(ACTION_PASSWORD_RESET),
-         TestCase(ACTION_USER_PROFILE),
+         ]
+        public void should_view(string view)
+        {
+            var url = string.Format("{0}{1}", BASE_URL, view);
+
+            GoTo(url);
+            AssertUrl(url);
+
+            CloseBrowser();
+        }
+
+        [TestCase(ACTION_USER_PROFILE),
         
          TestCase(ACTION_NEW_DOMAIN_OBJECT),
          TestCase(ACTION_LIST_DOMAIN_OBJECTS)]
-        public void should_view(string view)
+        public void should_view_after_login(string view)
         {
+            LoginAsUser();
+
             var url = string.Format("{0}{1}", BASE_URL, view);
 
             GoTo(url);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 
 using Moq;
@@ -15,113 +13,84 @@ using set.web.test.Shared.Builders;
 namespace set.web.test.Behaviour
 {
     [TestFixture]
-    public class VisitorBehaviourTests
+    public class VisitorBehaviourTests : BaseBehaviourTest
     {
-        private const string ActionNameNew = "New";
-        private const string ActionNameContact = "Contact";
-
-        public void any_visitor_can_give_feedback()
-        {
-
-        }
-
         [Test]
         public async void any_visitor_can_create_user_account()
         {
-            //arrange
-            var validModel = new UserModel
-            {
-                Name = "name",
-                Password = "pass",
-                Email = "test@test.com",
-                Language = Thread.CurrentThread.CurrentUICulture.Name,
-                Id = Guid.NewGuid().ToNoDashString()
-            };
-
+            //arrange 
             var userService = new Mock<IUserService>();
-            userService.Setup(x => x.Create(validModel, ConstHelper.User))
+            userService.Setup(x => x.Create(ValidUser, ConstHelper.User))
                        .Returns(Task.FromResult(true));
 
             var authService = new Mock<IAuthService>();
-            authService.Setup(x => x.SignIn(validModel.Id, validModel.Name, validModel.Email, ConstHelper.User, true));
+            authService.Setup(x => x.SignIn(ValidUser.Id, ValidUser.Name, ValidUser.Email, ConstHelper.User, true));
 
             //act
             var sut = new UserControllerBuilder().WithUserService(userService.Object)
                                                  .WithAuthService(authService.Object)
                                                  .Build();
 
-            var result = await sut.New(validModel);
+            var result = await sut.New(ValidUser);
 
             ////assert
             Assert.IsNotNull(result);
             Assert.IsAssignableFrom<RedirectResult>(result);
 
-            userService.Verify(x => x.Create(validModel, ConstHelper.User), Times.Once);
-            authService.Verify(x => x.SignIn(validModel.Id, validModel.Name, validModel.Email, ConstHelper.User, true), Times.Once);
+            userService.Verify(x => x.Create(ValidUser, ConstHelper.User), Times.Once);
+            authService.Verify(x => x.SignIn(ValidUser.Id, ValidUser.Name, ValidUser.Email, ConstHelper.User, true), Times.Once);
 
-            sut.AssertPostAttribute(ActionNameNew, new[] { typeof(UserModel) });
-            sut.AssertAllowAnonymousAttribute(ActionNameNew, new[] { typeof(UserModel) });
+            sut.AssertPostAttribute(ACTION_NEW, new[] { typeof(UserModel) });
+            sut.AssertAllowAnonymousAttribute(ACTION_NEW, new[] { typeof(UserModel) });
         }
 
         [Test]
         public async void any_visitor_can_send_feedback()
         {
-            //arrange
-            var validModel = new ContactMessageModel
-            { 
-                Message = "message",
-                Email = "test@test.com"
-            };
-
+            //arrange 
             var feedbackService = new Mock<IFeedbackService>();
-            feedbackService.Setup(x => x.CreateFeedback(validModel.Message, validModel.Email))
+            feedbackService.Setup(x => x.CreateFeedback(ValidContactMessage.Message, ValidContactMessage.Email))
                            .Returns(Task.FromResult(true));
 
             //act
             var sut = new FeedbackControllerBuilder().WithFeedbackService(feedbackService.Object)
-                                                     .BuildWithMockControllerContext("1","name","test@test.com",ConstHelper.User);
-            var result = await sut.New(validModel.Message);
+                                                     .BuildWithMockControllerContext(ValidUser.Id, ValidUser.Name, ValidUser.Email, ValidUser.RoleName);
+
+            var result = await sut.New(ValidContactMessage.Message);
 
             //assert
             Assert.IsNotNull(result);
             Assert.IsAssignableFrom<JsonResult>(result);
 
-            feedbackService.Verify(x => x.CreateFeedback(validModel.Message, validModel.Email), Times.Once);
+            feedbackService.Verify(x => x.CreateFeedback(ValidContactMessage.Message, ValidContactMessage.Email), Times.Once);
 
-            sut.AssertPostAttributeWithOutAntiForgeryToken(ActionNameNew, new[] { typeof(string) });
-            sut.AssertAllowAnonymousAttribute(ActionNameNew, new[] { typeof(string) }); 
+            sut.AssertPostAttributeWithOutAntiForgeryToken(ACTION_NEW, new[] { typeof(string) });
+            sut.AssertAllowAnonymousAttribute(ACTION_NEW, new[] { typeof(string) });
         }
 
         [Test]
         public async void any_visitor_can_send_contact_message()
         {
-            //arrange
-            var validModel = new ContactMessageModel
-            {
-                Subject = "subject",
-                Message = "message",
-                Email = "test@test.com"
-            };
-
+            //arrange 
             var feedbackService = new Mock<IFeedbackService>();
-            feedbackService.Setup(x => x.CreateContactMessage(validModel.Subject,validModel.Email,validModel.Message))
+            feedbackService.Setup(x => x.CreateContactMessage(ValidContactMessage.Subject, ValidContactMessage.Email, ValidContactMessage.Message))
                            .Returns(Task.FromResult(true));
 
             //act
             var sut = new HomeControllerBuilder().WithFeedbackService(feedbackService.Object)
                                                  .Build();
-            var result = await sut.Contact(validModel);
+            var result = await sut.Contact(ValidContactMessage);
 
             //assert
-            Assert.IsNotNull(result); 
+            Assert.IsNotNull(result);
             Assert.IsAssignableFrom<ViewResult>(result);
 
-            feedbackService.Verify(x => x.CreateContactMessage(validModel.Subject, validModel.Email, validModel.Message), Times.Once);
+            feedbackService.Verify(x => x.CreateContactMessage(ValidContactMessage.Subject, ValidContactMessage.Email, ValidContactMessage.Message), Times.Once);
 
-            sut.AssertPostAttribute(ActionNameContact, new[] { typeof(ContactMessageModel) });
-            sut.AssertAllowAnonymousAttribute(ActionNameContact, new[] { typeof(ContactMessageModel) });
+            sut.AssertPostAttribute(ACTION_CONTACT, new[] { typeof(ContactMessageModel) });
+            sut.AssertAllowAnonymousAttribute(ACTION_CONTACT, new[] { typeof(ContactMessageModel) });
         }
 
-        public void any_visitor_can_search_domain_object() { }
+        public void any_visitor_can_search() { }
     }
 }

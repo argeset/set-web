@@ -149,12 +149,12 @@ namespace set.web.Controllers
             if (!authenticated) return View(model);
 
             var user = await _userService.GetByEmail(model.Email);
-            _authService.SignIn(user.Id, user.Name, user.Email, ConstHelper.User, true);
+            _authService.SignIn(user.Id, user.Name, user.Email, user.RoleName, true);
 
             return Redirect(!string.IsNullOrEmpty(model.ReturnUrl) ? model.ReturnUrl : "/");
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult Logout()
         {
             _authService.SignOut();

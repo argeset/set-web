@@ -1,12 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using Moq;
 using NUnit.Framework;
-
-using set.web.Configurations;
-using set.web.Data.Entities;
+ 
 using set.web.Data.Services;
 using set.web.Helpers;
 using set.web.Models;
@@ -16,57 +13,39 @@ using set.web.test.Shared.Builders;
 namespace set.web.test.Behaviour
 {
     [TestFixture]
-    public class MembershipBehaviourTests
-    {
-        private const string ActionNameLogin = "Login";
-        private const string ActionNameLogout = "Logout";
-        private const string ActionNameReset = "PasswordReset";
-          
+    public class MembershipBehaviourTests : BaseBehaviourTest
+    { 
         [Test]
         public async void any_user_can_login()
         {
-            //arrange
-            var validModel = new LoginModel
-            {
-                Password = "pass",
-                Email = "test@test.com"
-            };
-
-            var user = new User
-            {
-                Id = "1",
-                Name = "name",
-                Email = "test@test.com",
-                RoleName = ConstHelper.User
-            };
-
+            //arrange  
             var userService = new Mock<IUserService>();
-            userService.Setup(x => x.Authenticate(validModel.Email, validModel.Password))
+            userService.Setup(x => x.Authenticate(ValidLogin.Email, ValidLogin.Password))
                        .Returns(Task.FromResult(true));
 
-            userService.Setup(x => x.GetByEmail(validModel.Email))
-                       .Returns(Task.FromResult(user));
+            userService.Setup(x => x.GetByEmail(ValidLogin.Email))
+                       .Returns(Task.FromResult(ValidUserEntity));
 
             var authService = new Mock<IAuthService>();
-            authService.Setup(x => x.SignIn(user.Id, user.Name, user.Email, ConstHelper.User, true));
+            authService.Setup(x => x.SignIn(ValidUserEntity.Id, ValidUserEntity.Name, ValidUserEntity.Email, ConstHelper.User, true));
 
             ////act
             var sut = new UserControllerBuilder().WithUserService(userService.Object)
                                                  .WithAuthService(authService.Object)
                                                  .Build();
 
-            var result = await sut.Login(validModel);
+            var result = await sut.Login(ValidLogin);
 
             ////assert
             Assert.IsNotNull(result);
             Assert.IsAssignableFrom<RedirectResult>(result);
 
-            userService.Verify(x => x.Authenticate(validModel.Email, validModel.Password), Times.Once);
-            userService.Verify(x => x.GetByEmail(validModel.Email), Times.Once);
-            authService.Verify(x => x.SignIn(user.Id, user.Name, user.Email, ConstHelper.User, true), Times.Once);
+            userService.Verify(x => x.Authenticate(ValidLogin.Email, ValidLogin.Password), Times.Once);
+            userService.Verify(x => x.GetByEmail(ValidLogin.Email), Times.Once);
+            authService.Verify(x => x.SignIn(ValidUserEntity.Id, ValidUserEntity.Name, ValidUserEntity.Email, ConstHelper.User, true), Times.Once);
 
-            sut.AssertPostAttribute(ActionNameLogin, new[] { typeof(LoginModel) });
-            sut.AssertAllowAnonymousAttribute(ActionNameLogin, new[] { typeof(LoginModel) });
+            sut.AssertPostAttribute(ACTION_LOGIN, new[] { typeof(LoginModel) });
+            sut.AssertAllowAnonymousAttribute(ACTION_LOGIN, new[] { typeof(LoginModel) });
         }
 
         [Test]
@@ -83,7 +62,9 @@ namespace set.web.test.Behaviour
 
             //assert
             Assert.IsNotNull(result);
-            Assert.IsAssignableFrom<RedirectResult>(result); 
+            Assert.IsAssignableFrom<RedirectResult>(result);
+
+            sut.AssertGetAttribute(ACTION_LOGOUT); 
         }
 
         [Test]
