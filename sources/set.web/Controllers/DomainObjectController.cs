@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-
+using set.web.Data.Entities;
 using set.web.Data.Services;
 using set.web.Helpers;
 using set.web.Models;
@@ -40,10 +40,11 @@ namespace set.web.Controllers
             }
 
             model.IsOk = await _domainObjectService.Create(model.Name, User.Identity.GetEmail());
-            if (model.IsOk)
-            {
-                model.Msg = SetHtmlHelper.LocalizationString("data_saved_successfully_msg");
-            }
+            if (model.IsOk && model.IsButtonSaveAndNew)
+                return View(new DomainObjectModel() { IsOk = true, Msg = SetHtmlHelper.LocalizationString("data_saved_successfully_msg") });
+
+            if (!model.IsButtonSaveAndNew)
+                return RedirectToAction("List");
 
             return View(model);
         }
