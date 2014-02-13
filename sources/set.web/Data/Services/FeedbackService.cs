@@ -53,11 +53,44 @@ namespace set.web.Data.Services
 
             return Task.FromResult(Context.SaveChanges() > 0);
         }
+
+        public Task<PagedList<Feedback>> GetFeedbacks(int pageNumber)
+        {
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
+            var query = Context.Feedbacks.Where(x => !x.IsDeleted);
+
+            var count = query.Count();
+            var items = query.OrderByDescending(x => x.Id).Skip(ConstHelper.PageSize * (pageNumber - 1)).Take(ConstHelper.PageSize).ToList();
+
+            return Task.FromResult(new PagedList<Feedback>(pageNumber, ConstHelper.PageSize, count, items));
+        }
+
+        public Task<PagedList<ContactMessage>> GetContactMessages(int pageNumber)
+        {
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
+            var query = Context.ContactMessages.Where(x => !x.IsDeleted);
+
+            var count = query.Count();
+            var items = query.OrderByDescending(x => x.Id).Skip(ConstHelper.PageSize * (pageNumber - 1)).Take(ConstHelper.PageSize).ToList();
+
+            return Task.FromResult(new PagedList<ContactMessage>(pageNumber, ConstHelper.PageSize, count, items));
+        }
     }
 
     public interface IFeedbackService
     {
         Task<bool> CreateFeedback(string message, string email);
         Task<bool> CreateContactMessage(string subject, string email, string message);
+
+        Task<PagedList<Feedback>> GetFeedbacks(int pageNumber);
+        Task<PagedList<ContactMessage>> GetContactMessages(int pageNumber);
     }
 }

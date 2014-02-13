@@ -52,7 +52,22 @@ namespace set.web.Controllers
             return View(model);
         }
 
-
+        [HttpGet]
+        public async Task<ViewResult> Feedbacks(int id = 1)
+        {
+            var result = await _feedbackService.GetFeedbacks(id);
+            var list = result.Items.Select(FeedbackModel.Map).ToList();
+            var model = new PageModel<FeedbackModel>
+            {
+                Items = list,
+                HasNextPage = result.HasNextPage,
+                HasPreviousPage = result.HasPreviousPage,
+                Number = result.Number,
+                TotalCount = result.TotalCount,
+                TotalPageCount = result.TotalPageCount
+            };
+            return View(model);
+        }
 
     }
 }
