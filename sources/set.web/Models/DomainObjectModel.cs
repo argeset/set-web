@@ -6,7 +6,7 @@ namespace set.web.Models
     {
         public string Name { get; set; }
 
-        public string FormButton { get; set; }
+        public bool IsButtonSaveAndNew { get; set; }
 
         internal bool IsValid()
         {

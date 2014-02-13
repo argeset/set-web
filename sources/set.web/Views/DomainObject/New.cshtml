@@ -9,27 +9,41 @@
     <hr />
 </div>
 
+@Html.Partial("_Msg")
+
 <div class="row">
     <div class="col-md-6">
 
-        @Html.Partial("_Msg")
+        <form method="post">
 
-        @if (!Model.IsOk)
-        {
-            <form method="post">
+            <div class="form-group">
+                <label for="Name">@Html.LocalizationString("name")</label>
+                <input id="Name" name="Name" type="text" class="form-control" value="@Model.Name" required />
+            </div>
 
-                <div class="form-group">
-                    <label for="Name">@Html.LocalizationString("name")</label>
-                    <input id="Name" name="Name" type="text" class="form-control" value="@Model.Name" required />
-                </div>
+            @Html.AntiForgeryToken()
 
-                @Html.AntiForgeryToken()
-                
-                <input id="btnSave" name="FormButton" type="submit" class="btn btn-primary" value="@Html.LocalizationString("btn_save")" />
-                <input id="btnSaveAndNew" name="FormButton" type="submit" class="btn btn-info" value="@Html.LocalizationString("btn_save_and_new")" />
-                
-            </form>
-        }
+            
+
+            <button id="btnSave" type="submit" class="btn btn-primary" value="false">@Html.LocalizationString("btn_save")</button>
+            <button id="btnSaveAndNew" type="submit" class="btn btn-info" value="true">@Html.LocalizationString("btn_save_and_new")</button>
+            <input id="ClickedButton" name="IsButtonSaveAndNew" type="hidden" />
+
+
+        </form>
+
     </div>
 
 </div>
+
+
+@section Script
+{
+    <script>
+        $(function () {
+            $('#btnSave, #btnSaveAndNew').click(function () {
+                $('#ClickedButton').val($(this).val());
+            });
+        });
+    </script>
+}
