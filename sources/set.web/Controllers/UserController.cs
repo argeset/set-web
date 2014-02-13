@@ -21,6 +21,18 @@ namespace set.web.Controllers
             _userService = userService;
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Detail()
+        {
+            var result = await _userService.Get(User.Identity.GetId());
+
+            if (result == null) return RedirectToHome();
+
+            var model = UserModel.Map(result);
+            return View(model);
+        }
+
+        #region Membership
         [HttpGet, AllowAnonymous]
         public ActionResult New()
         {
@@ -145,14 +157,7 @@ namespace set.web.Controllers
         {
             _authService.SignOut();
             return RedirectToHome();
-        }
-
-        [HttpGet]
-        public new async Task<ViewResult> Profile()
-        {
-            var result = await _userService.Get(User.Identity.GetId());
-            var model = UserModel.Map(result);
-            return View(model);
-        }
+        } 
+        #endregion
     }
 }

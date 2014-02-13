@@ -120,7 +120,7 @@
     <Content Include="Views\User\PasswordReset.cshtml" />
     <Content Include="Views\DomainObject\New.cshtml" />
     <Content Include="Views\DomainObject\List.cshtml" />
-    <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\User\Detail.cshtml" />
     <Content Include="Views\User\PasswordChange.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
