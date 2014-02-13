@@ -21,7 +21,6 @@ namespace set.web.test.Shared.Builders
         internal HomeController Build()
         {
             return new HomeController(_feedbackService);
-        }
-
+        } 
     }
 }

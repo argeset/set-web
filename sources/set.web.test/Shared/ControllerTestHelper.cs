@@ -32,10 +32,10 @@ namespace set.web.test.Shared
             AssertAttribute(controller, actionMethodName, typeof(HttpPostAttribute), parameterTypes);
             AssertAttribute(controller, actionMethodName, typeof(ValidateAntiForgeryTokenAttribute), parameterTypes);
         }
+
         public static void AssertPostAttributeWithOutAntiForgeryToken(this Controller controller, string actionMethodName, Type[] parameterTypes = null)
         {
             AssertAttribute(controller, actionMethodName, typeof(HttpPostAttribute), parameterTypes);
-        }
-
+        } 
     }
 }
