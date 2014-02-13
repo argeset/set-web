@@ -13,7 +13,8 @@ namespace set.web.test.Shared
         public const string ACTION_LOGIN = "/user/login";
         public const string ACTION_LOGOUT = "/user/logout";
         public const string ACTION_SIGNUP = "/user/new";
-        public const string ACTION_PROFILE = "/user/detail";
+        public const string ACTION_PASSWORD_RESET = "/user/reset";
+        public const string ACTION_USER_PROFILE = "/user/detail";
 
         public const string ACTION_NEW_DOMAIN_OBJECT = "/domainobject/new";
         public const string ACTION_LIST_DOMAIN_OBJECTS = "/domainobject/list";

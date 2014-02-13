@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+
 using set.web.test.Shared;
 
 namespace set.web.test.Interface
@@ -8,8 +9,15 @@ namespace set.web.test.Interface
     {
         [TestCase(ACTION_HOME),
          TestCase(ACTION_CONTACT),
+
+         TestCase(ACTION_LOGIN),
          TestCase(ACTION_LOGOUT),
-         TestCase(ACTION_SIGNUP)]
+         TestCase(ACTION_SIGNUP),
+         TestCase(ACTION_PASSWORD_RESET),
+         TestCase(ACTION_USER_PROFILE),
+        
+         TestCase(ACTION_NEW_DOMAIN_OBJECT),
+         TestCase(ACTION_LIST_DOMAIN_OBJECTS)]
         public void should_view(string view)
         {
             var url = string.Format("{0}{1}", BASE_URL, view);

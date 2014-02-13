@@ -50,9 +50,9 @@ namespace set.web.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public ActionResult Reset()
+        public ActionResult PasswordReset()
         {
-            var model = new ResetModel();
+            var model = new PasswordResetModel();
 
             if (User.Identity.IsAuthenticated)
             {
@@ -63,18 +63,56 @@ namespace set.web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
-        public async Task<ActionResult> Reset(ResetModel model)
+        public async Task<ActionResult> PasswordReset(PasswordResetModel model)
         {
-            if (!model.IsValid())
+            SetPleaseTryAgain(model);
+            if (model.IsNotValid())
             {
-                SetPleaseTryAgain(model);
                 return View(model);
             }
 
-            var user = await _userService.GetByEmail(model.Email);
-            //todo: parola sıfırlama maili gönderilir.
+            var isOk = await _userService.RequestPasswordReset(model.Email);
+            if (isOk)
+            {
+                model.Msg = SetHtmlHelper.LocalizationString("password_reset_request_successful");
+            }
 
-            return Redirect("/user/login");
+            return View(model);
+        }
+
+        [HttpGet, AllowAnonymous]
+        public async Task<ActionResult> PasswordChange(string email, string token)
+        {
+            var model = new PasswordChangeModel { Email = email, Token = token };
+            SetPleaseTryAgain(model);
+            if (model.IsNotValid())
+            {
+                return View(model);
+            }
+
+            if (await _userService.IsPasswordResetRequestValid(model.Email, model.Token))
+            {
+                return Redirect("/User/Login");
+            }
+
+            return View(model);
+        }
+
+        [HttpPost, AllowAnonymous]
+        public async Task<ActionResult> PasswordChange(PasswordChangeModel model)
+        {
+            SetPleaseTryAgain(model);
+            if (model.IsNotValid())
+            {
+                return View(model);
+            }
+
+            if (!await _userService.ChangePassword(model.Email, model.Token, model.Password))
+            {
+                return View(model);
+            }
+
+            return Redirect("/User/Login");
         }
 
         [HttpGet, AllowAnonymous]
