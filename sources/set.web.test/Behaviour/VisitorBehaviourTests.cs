@@ -147,7 +147,6 @@ namespace set.web.test.Behaviour
 
             sut.AssertGetAttribute(ACTION_QUERY, new[] { typeof(string) });
             sut.AssertAllowAnonymousAttribute(ACTION_QUERY, new[] { typeof(string) });
-
         }
     }
 }
