@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+
 using GravatarHelper;
+
 using set.web.Data.Entities;
 using set.web.Helpers;
 using set.web.Models;
@@ -26,9 +28,9 @@ namespace set.web.Data.Services
                 IsActive = true,
                 Language = model.Language
             };
-            _context.Set<User>().Add(user);
+            Context.Set<User>().Add(user);
 
-            return Task.FromResult(_context.SaveChanges() > 0);
+            return Task.FromResult(Context.SaveChanges() > 0);
         }
 
 
@@ -39,7 +41,7 @@ namespace set.web.Data.Services
                 pageNumber = 1;
             }
 
-            var query = _context.Set<User>().Where(x => !x.IsDeleted);
+            var query = Context.Set<User>().Where(x => !x.IsDeleted);
 
             var count = query.Count();
             var items = query.OrderByDescending(x => x.Id).Skip(ConstHelper.PageSize * (pageNumber - 1)).Take(ConstHelper.PageSize).ToList();
@@ -54,7 +56,7 @@ namespace set.web.Data.Services
                 pageNumber = 1;
             }
 
-            var query = _context.Set<User>().Where(x => !x.IsDeleted && x.RoleId == roleId);
+            var query = Context.Set<User>().Where(x => !x.IsDeleted && x.RoleId == roleId);
 
             var count = query.Count();
             var items = query.OrderByDescending(x => x.Id).Skip(ConstHelper.PageSize * (pageNumber - 1)).Take(ConstHelper.PageSize).ToList();
@@ -66,7 +68,7 @@ namespace set.web.Data.Services
         {
             if (string.IsNullOrEmpty(userId)) return null;
 
-            var user = _context.Set<User>().FirstOrDefault(x => x.Id == userId);
+            var user = Context.Set<User>().FirstOrDefault(x => x.Id == userId);
             return Task.FromResult(user);
         }
 
@@ -74,7 +76,7 @@ namespace set.web.Data.Services
         {
             if (!email.IsEmail()) return null;
 
-            var user = _context.Set<User>().FirstOrDefault(x => x.Email == email);
+            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email);
             return Task.FromResult(user);
         }
 
@@ -83,7 +85,7 @@ namespace set.web.Data.Services
         {
             if (!email.IsEmail() || string.IsNullOrEmpty(password)) return Task.FromResult(false);
 
-            var user = _context.Set<User>().FirstOrDefault(x => x.Email == email);
+            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email);
             if (user == null) return Task.FromResult(false);
 
             var result = false;
@@ -100,7 +102,7 @@ namespace set.web.Data.Services
                 user.LoginTryCount += 1;
             }
 
-            _context.SaveChanges();
+            Context.SaveChanges();
 
             return Task.FromResult(result);
         }

@@ -7,7 +7,7 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using set.web.Data;
+
 using set.web.Data.Services;
 
 namespace set.web.Configurations
@@ -30,9 +30,7 @@ namespace set.web.Configurations
         {
             if (controllerType == null)
             {
-                throw new HttpException(404,
-                    string.Format("The controller for path '{0}' could not be found.",
-                        requestContext.HttpContext.Request.Path));
+                throw new HttpException(404, string.Format("The controller for path '{0}' could not be found.", requestContext.HttpContext.Request.Path));
             }
 
             return (IController)_kernel.Resolve(controllerType);
@@ -45,7 +43,6 @@ namespace set.web.Configurations
         {
             container.Register(Classes.FromThisAssembly()
                                       .BasedOn<IController>()
-                                      .Unless(x => x.Name == "BaseController")
                                       .LifestyleTransient());
         }
     }
@@ -54,8 +51,9 @@ namespace set.web.Configurations
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Register(Component.For<IAuthService>().ImplementedBy<AuthService>().LifestylePerWebRequest());
+
             container.Register(
-                Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>().LifestylePerWebRequest(),
                 Component.For<IUserService>().ImplementedBy<UserService>().LifestylePerWebRequest(),
                 Component.For<IFeedbackService>().ImplementedBy<FeedbackService>().LifestylePerWebRequest(),
                 Component.For<IDomainObjectService>().ImplementedBy<DomainObjectService>().LifestylePerWebRequest());

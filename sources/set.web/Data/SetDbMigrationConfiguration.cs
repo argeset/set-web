@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
+
 using GravatarHelper;
+
 using set.web.Data.Entities;
 using set.web.Helpers;
 

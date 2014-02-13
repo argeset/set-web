@@ -1,10 +1,8 @@
-﻿using System.Data.Entity;
-
-namespace set.web.Data.Services
+﻿namespace set.web.Data.Services
 {
     public class BaseService
     {
-        public readonly SetDbContext _context;
+        public readonly SetDbContext Context;
 
         public BaseService(SetDbContext context = null)
         {
@@ -13,7 +11,7 @@ namespace set.web.Data.Services
                 context = new SetDbContext();
             }
 
-            _context = context;
+            Context = context;
         }
     }
 }

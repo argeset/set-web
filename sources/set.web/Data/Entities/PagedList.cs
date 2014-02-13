@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using set.web.Data.Entities;
-
 namespace set.web.Data.Entities
 {
     public class PagedList<TEntity> where TEntity : BaseEntity

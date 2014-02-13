@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+
 using set.web.Data.Entities;
 using set.web.Helpers;
-using set.web.Models;
 
 namespace set.web.Data.Services
 {
@@ -11,7 +10,7 @@ namespace set.web.Data.Services
     {
         public Task<bool> CreateFeedback(string message, string email)
         {
-            if (string.IsNullOrEmpty(message)) return Task.FromResult(false);
+            if (string.IsNullOrWhiteSpace(message)) return Task.FromResult(false);
 
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -24,15 +23,15 @@ namespace set.web.Data.Services
                 Email = email
             };
 
-            var user = _context.Set<User>().FirstOrDefault(x => x.Email == email);
+            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email);
             if (user != null)
             {
                 feedback.CreatedBy = user.Id;
             }
 
-            _context.Set<Feedback>().Add(feedback);
+            Context.Set<Feedback>().Add(feedback);
 
-            return Task.FromResult(_context.SaveChanges() > 0);
+            return Task.FromResult(Context.SaveChanges() > 0);
         }
 
         public Task<bool> CreateContactMessage(string subject, string email, string message)
@@ -44,16 +43,15 @@ namespace set.web.Data.Services
                 Message = message
             };
 
-            var user = _context.Set<User>().FirstOrDefault(x => x.Email == email);
+            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email);
             if (user != null)
             {
-                contact.IsAnonymous = false;
                 contact.CreatedBy = user.Id;
             }
 
-            _context.Set<ContactMessage>().Add(contact);
+            Context.Set<ContactMessage>().Add(contact);
 
-            return Task.FromResult(_context.SaveChanges() > 0);
+            return Task.FromResult(Context.SaveChanges() > 0);
         }
     }
 

@@ -28,31 +28,28 @@
                         </tr>
                     }
                 </tbody>
-                <tfoot>
-                    @{
-                        if (Model.HasNextPage || Model.HasPreviousPage)
-                        {
-                            <tr>
-                                <td colspan="4" align="center">
-                                    <ul class="pagination">
-                                        @if (Model.HasPreviousPage)
-                                        {
-                                            <li><a id="prevPage" href="~/domainobject/list/@(Model.Number-1)">&laquo;</a></li>
-                                        }
-                                        <li><a href="~/domainobject/list/@(Model.Number)">@(Model.Number)</a></li>
-                                        @if (Model.HasNextPage)
-                                        {
-                                            <li><a id="nextPage" href="~/domainobject/list/@(Model.Number+1)">&raquo;</a></li>
-                                        }
-                                    </ul>
-                                    <br />
-                                    <span class="label label-primary">@Html.LocalizationString("total_page_count") : @Model.TotalPageCount</span>
-                                </td>
-                            </tr>
-                        }
-                    }
-                </tfoot>
             </table>
+            <div>
+                @{
+                    if (Model.TotalPageCount > 1)
+                    {
+                        const string link = "/domainobject/list";
+                        <ul class="pagination">
+                            @if (Model.HasPreviousPage)
+                            {
+                                <li><a id="prevPage" href="@link/@(Model.Number-1)">&laquo;</a></li>
+                            }
+                            <li><a href="@link/@(Model.Number)">@(Model.Number)</a></li>
+                            @if (Model.HasNextPage)
+                            {
+                                <li><a id="nextPage" href="@link/@(Model.Number+1)">&raquo;</a></li>
+                            }
+                        </ul>
+                        <br />
+                        <span class="label label-primary">@Html.LocalizationString("total_page_count") : @Model.TotalPageCount</span>
+                    }
+                }
+            </div>
         </div>
 
     </div>

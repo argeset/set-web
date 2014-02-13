@@ -1,22 +1,23 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using set.web.Data.Services;
 using set.web.Helpers;
 using set.web.Models;
-using IFormsAuthenticationService = set.web.Configurations.IFormsAuthenticationService;
 
 namespace set.web.Controllers
 {
     public class UserController : BaseController
     {
-        private readonly IFormsAuthenticationService _formsAuthenticationService;
+        private readonly IAuthService _authService;
         private readonly IUserService _userService;
 
-        public UserController(IFormsAuthenticationService formsAuthenticationService, IUserService userService)
+        public UserController(
+            IAuthService authService, 
+            IUserService userService)
         {
-            _formsAuthenticationService = formsAuthenticationService;
+            _authService = authService;
             _userService = userService;
         }
 
@@ -31,8 +32,7 @@ namespace set.web.Controllers
         {
             if (!model.IsValidForNewDeveloper())
             {
-                //todo: locale stringler gelecek
-                model.Msg = "Bilgileri eksiksiz doldurunuz.";
+                SetPleaseTryAgain(model);
                 return View(model);
             }
 
@@ -40,12 +40,11 @@ namespace set.web.Controllers
             var status = await _userService.Create(model, ConstHelper.User);
             if (!status)
             {
-                //todo: locale stringler gelecek
-                model.Msg = "Kayıt işlemi başarısız.";
+                SetPleaseTryAgain(model);
                 return View(model);
             }
 
-            _formsAuthenticationService.SignIn(model.Id, model.Name, model.Email, ConstHelper.User, true);
+            _authService.SignIn(model.Id, model.Name, model.Email, ConstHelper.User, true);
 
             return Redirect("/");
         }
@@ -69,8 +68,7 @@ namespace set.web.Controllers
 
             if (!model.IsValid())
             {
-                //todo: locale stringler gelecek
-                model.Msg = "Bilgileri eksiksiz doldurunuz.";
+                SetPleaseTryAgain(model);
                 return View(model);
             }
 
@@ -89,24 +87,18 @@ namespace set.web.Controllers
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
         public async Task<ActionResult> Login(LoginModel model)
         {
+            SetPleaseTryAgain(model);
 
             if (!model.IsValid())
             {
-                //todo: locale stringler gelecek
-                model.Msg = "Bilgileri eksiksiz doldurunuz.";
                 return View(model);
             }
 
             var authenticated = await _userService.Authenticate(model.Email, model.Password);
-            if (!authenticated)
-            {
-                //todo: locale stringler gelecek
-                model.Msg = "Hatalı email yada parola";
-                return View(model);
-            }
+            if (!authenticated) return View(model);
 
             var user = await _userService.GetByEmail(model.Email);
-            _formsAuthenticationService.SignIn(user.Id, user.Name, user.Email, ConstHelper.User, true);
+            _authService.SignIn(user.Id, user.Name, user.Email, ConstHelper.User, true);
 
             return Redirect(!string.IsNullOrEmpty(model.ReturnUrl) ? model.ReturnUrl : "/");
         }
@@ -114,7 +106,7 @@ namespace set.web.Controllers
         [HttpGet]
         public ActionResult Logout()
         {
-            _formsAuthenticationService.SignOut();
+            _authService.SignOut();
             return RedirectToHome();
         }
     }

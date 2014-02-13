@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using set.web.Data.Services;
 using set.web.Helpers;
@@ -49,7 +45,6 @@ namespace set.web.Controllers
             }
 
             model.IsOk = await _feedbackService.CreateContactMessage(model.Subject, model.Email, model.Message);
-
             if (model.IsOk)
             {
                 model.Msg = SetHtmlHelper.LocalizationString("data_saved_successfully_msg");

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using set.web.Data.Entities;
 using set.web.Helpers;
 
@@ -10,22 +11,24 @@ namespace set.web.Data.Services
     {
         public Task<bool> Create(string name, string email)
         {
-            var model = new DomainObject() { Name = name };
+            var model = new DomainObject { Name = name };
 
-            var user = _context.Set<User>().FirstOrDefault(x => x.Email == email);
+            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email);
             if (user != null)
                 model.CreatedBy = user.Id;
 
-            _context.Set<DomainObject>().Add(model);
-            return Task.FromResult(_context.SaveChanges() > 0);
+            Context.Set<DomainObject>().Add(model);
+            return Task.FromResult(Context.SaveChanges() > 0);
         }
 
         public Task<PagedList<DomainObject>> GetDomainObjects(int pageNumber)
         {
             if (pageNumber < 1)
+            {
                 pageNumber = 1;
+            }
 
-            var query = _context.Set<DomainObject>();
+            var query = Context.Set<DomainObject>();
 
             var count = query.Count();
             var items = query.OrderByDescending(x => x.Id).Skip(ConstHelper.PageSize * (pageNumber - 1)).Take(ConstHelper.PageSize).ToList();
@@ -35,7 +38,7 @@ namespace set.web.Data.Services
 
         public Task<List<DomainObject>> GetAll()
         {
-            return Task.FromResult(new List<DomainObject>(_context.Set<DomainObject>()));
+            return Task.FromResult(new List<DomainObject>(Context.Set<DomainObject>()));
         }
 
         public Task<List<DomainObject>> Search(string key)

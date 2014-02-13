@@ -2,6 +2,6 @@
 {
     public class DomainObject : BaseEntity
     {
-        // Name prop base den geliyor.
+
     }
 }

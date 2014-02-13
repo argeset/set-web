@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using set.web.Data.Entities;
+
 using set.web.Data.Services;
 using set.web.Helpers;
 using set.web.Models;
@@ -34,21 +31,19 @@ namespace set.web.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> New(DomainObjectModel model)
         {
+            SetPleaseTryAgain(model);
+
             if (!model.IsValid())
             {
-                //todo: locale stringler gelecek
-                model.Msg = "Bilgileri eksiksiz doldurunuz.";
                 return View(model);
             }
 
             model.IsOk = await _domainObjectService.Create(model.Name, User.Identity.GetEmail());
-            if (!model.IsOk)
+            if (model.IsOk)
             {
-                //todo: locale stringler gelecek
-                model.Msg = "Kayıt işlemi başarısız.";
+                model.Msg = SetHtmlHelper.LocalizationString("data_saved_successfully_msg");
             }
 
-            model.Msg = "Kayıt işlemi başarılı.";
             return View(model);
         }
 

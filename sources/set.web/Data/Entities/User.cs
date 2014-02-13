@@ -1,5 +1,4 @@
 ﻿using System;
-using set.web.Helpers;
 
 namespace set.web.Data.Entities
 {

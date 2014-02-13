@@ -107,10 +107,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\SetWeb.mdf" />
-    <Content Include="App_Data\SetWeb_log.ldf">
-      <DependentUpon>SetWeb.mdf</DependentUpon>
-    </Content>
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -182,7 +178,9 @@
     <Compile Include="Data\Services\FormsAuthenticationService.cs" />
     <Compile Include="Data\Services\UserService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

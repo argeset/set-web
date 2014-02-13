@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+
 using set.web.Data.Entities;
 
 namespace set.web.Data
@@ -19,6 +20,5 @@ namespace set.web.Data
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<DomainObject> DomainObjects { get; set; }
-
     }
 }
