@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using GravatarHelper;
-
 using set.web.Data.Entities;
 using set.web.Helpers;
 using set.web.Models;
@@ -14,9 +12,9 @@ namespace set.web.Data.Services
     {
         public Task<bool> Create(UserModel model, string roleName)
         {
-            if (!model.IsValid()) return Task.FromResult(false);
+            if (model.IsNotValid()) return Task.FromResult(false);
 
-            var img = GravatarHelper.GravatarHelper.CreateGravatarUrl(model.Email, 35, string.Empty, GravatarRating.PG, false, false);
+            var img = model.Email.ToGravatar();
             var user = new User
             {
                 Email = model.Email,
@@ -32,7 +30,6 @@ namespace set.web.Data.Services
 
             return Task.FromResult(Context.SaveChanges() > 0);
         }
-
 
         public Task<PagedList<User>> GetUsers(int pageNumber)
         {
@@ -71,7 +68,6 @@ namespace set.web.Data.Services
             var user = Context.Set<User>().FirstOrDefault(x => x.Id == userId);
             return Task.FromResult(user);
         }
-
         public Task<User> GetByEmail(string email)
         {
             if (!email.IsEmail()) return null;
@@ -79,7 +75,6 @@ namespace set.web.Data.Services
             var user = Context.Set<User>().FirstOrDefault(x => x.Email == email);
             return Task.FromResult(user);
         }
-
 
         public Task<bool> Authenticate(string email, string password)
         {
@@ -106,7 +101,6 @@ namespace set.web.Data.Services
 
             return Task.FromResult(result);
         }
-
     }
 
     public interface IUserService

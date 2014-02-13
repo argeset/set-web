@@ -20,12 +20,14 @@
 
                 <div class="form-group">
                     <label for="Name">@Html.LocalizationString("name")</label>
-                    <input id="Name" name="Name" type="text" class="form-control" value="@Model.Name" />
+                    <input id="Name" name="Name" type="text" class="form-control" value="@Model.Name" required />
                 </div>
 
                 @Html.AntiForgeryToken()
-
-                <button type="submit" class="btn btn-default">@Html.LocalizationString("btn_send")</button>
+                
+                <input id="btnSave" name="FormButton" type="submit" class="btn btn-primary" value="@Html.LocalizationString("btn_save")" />
+                <input id="btnSaveAndNew" name="FormButton" type="submit" class="btn btn-info" value="@Html.LocalizationString("btn_save_and_new")" />
+                
             </form>
         }
     </div>

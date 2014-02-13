@@ -13,26 +13,17 @@ namespace set.web.Models
         public int RoleId { get; set; }
         public bool IsActive { get; set; }
         public string Language { get; set; }
-
-        public bool IsValidForNewTranslator()
-        {
-            return !string.IsNullOrEmpty(Name)
-                   && Email.IsEmail();
-        }
-
-        public bool IsValidForNewDeveloper()
-        {
-            return !string.IsNullOrEmpty(Password)
-                   && !string.IsNullOrEmpty(Email)
-                   && !string.IsNullOrEmpty(Name)
-                   && Email.IsEmail();
-        }
-
+        
         public bool IsValid()
         {
             return !string.IsNullOrEmpty(Password)
                    && !string.IsNullOrEmpty(Name)
                    && Email.IsEmail();
+        }
+
+        public bool IsNotValid()
+        {
+            return !IsValid();
         }
 
         public static UserModel Map(User user)

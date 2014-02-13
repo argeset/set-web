@@ -6,12 +6,19 @@ namespace set.web.Models
     {
         public string Name { get; set; }
 
+        public string FormButton { get; set; }
+
         internal bool IsValid()
         {
-            return !string.IsNullOrEmpty(Name);
+            return !string.IsNullOrWhiteSpace(Name);
         }
 
-        public static DomainObjectModel MapEntityToModel(DomainObject entity)
+        internal bool IsNotValid()
+        {
+            return !IsValid();
+        }
+
+        public static DomainObjectModel Map(DomainObject entity)
         {
             var model = new DomainObjectModel
             {

@@ -17,6 +17,7 @@ namespace set.web.Controllers
             _domainObjectService = domainObjectService;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
@@ -51,7 +52,7 @@ namespace set.web.Controllers
         public async Task<ViewResult> List(int id = 1)
         {
             var result = await _domainObjectService.GetDomainObjects(id);
-            var list = result.Items.Select(DomainObjectModel.MapEntityToModel).ToList();
+            var list = result.Items.Select(DomainObjectModel.Map).ToList();
             var model = new PageModel<DomainObjectModel>
             {
                 Items = list,

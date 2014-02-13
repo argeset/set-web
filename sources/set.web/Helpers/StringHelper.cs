@@ -3,6 +3,8 @@ using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using GravatarHelper;
+
 namespace set.web.Helpers
 {
     public static class StringHelper
@@ -10,6 +12,11 @@ namespace set.web.Helpers
         public static string ToNoDashString(this Guid guid)
         {
             return guid.ToString().Replace("-", string.Empty);
+        }
+
+        public static string ToGravatar(this string email, int size = 35)
+        {
+            return GravatarHelper.GravatarHelper.CreateGravatarUrl(email, size, string.Empty, GravatarRating.PG, false, false);
         }
 
         public static string ToUrlSlug(this string text)

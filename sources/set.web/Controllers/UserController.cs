@@ -1,6 +1,6 @@
-﻿using System.Threading;
+﻿using System.Web.Mvc;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 using set.web.Data.Services;
 using set.web.Helpers;
@@ -30,7 +30,7 @@ namespace set.web.Controllers
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
         public async Task<ActionResult> New(UserModel model)
         {
-            if (!model.IsValidForNewDeveloper())
+            if (!model.IsValid())
             {
                 SetPleaseTryAgain(model);
                 return View(model);
@@ -65,7 +65,6 @@ namespace set.web.Controllers
         [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
         public async Task<ActionResult> Reset(ResetModel model)
         {
-
             if (!model.IsValid())
             {
                 SetPleaseTryAgain(model);
