@@ -6,7 +6,6 @@ using set.web.Models;
 
 namespace set.web.Controllers
 {
-    [AllowAnonymous]
     public class BaseController : Controller
     {
         public HtmlHelper SetHtmlHelper;
