@@ -11,7 +11,6 @@ namespace set.web.test.Interface
          TestCase(ACTION_CONTACT),
 
          TestCase(ACTION_LOGIN),
-         TestCase(ACTION_LOGOUT),
          TestCase(ACTION_SIGNUP),
          TestCase(ACTION_PASSWORD_RESET),
          ]
