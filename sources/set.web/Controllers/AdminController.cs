@@ -35,7 +35,6 @@ namespace set.web.Controllers
             return View();
         }
 
-
         [HttpGet]
         public async Task<ViewResult> Users(int id = 1)
         {
