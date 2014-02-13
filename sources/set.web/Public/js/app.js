@@ -1,19 +1,24 @@
 ﻿$(function () {
     $('#btnSaveFeedback').click(function () {
         var message = $("#FeedbackMessage").val();
-        if (message.length < 1) { $("#FeedbackMessage").parent().append('<label class="error">*</label>'); return; }
+        var fbRetMsg = $("#feedbackReturnMessage");
+        if (message.length < 1) { fbRetMsg.html('<label class="error">*</label>'); return; }
 
-        $("div#wrnFeedback").html('');
+        fbRetMsg.html(null);
 
         $.post('/Feedback/New', { message: message }, function (result) {
             if (result && result.IsOk) {
-                $("#modalFeedback").modal('hide');
+                fbRetMsg.html('<div class="alert alert-success alert-dismissable"><span>Thanks for feedback.</span></div>');
+                setTimeout(function () {
+                    $("#modalFeedback").modal('hide');
+                    $("#FeedbackMessage").val(null);
+                }, 2000);
             } else {
-                $("div#wrnFeedback").append('<div class="alert alert-warning alert-dismissable">' +
+                fbRetMsg.html('<div class="alert alert-warning alert-dismissable">' +
                     '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
                     '<strong>Ups! </strong> ' + result.Msg + '</div>');
             }
         });
     });
-    $('#modalFeedback').on('hidden.bs.modal', function () { $("div#wrnFeedback").html(''); $("#Feedback").val(''); $("label.error").remove(); });
+    $('#modalFeedback').on('hidden.bs.modal', function () { $("feedbackReturnMessage").html(null); $("#Feedback").val(''); $("label.error").remove(); });
 });
