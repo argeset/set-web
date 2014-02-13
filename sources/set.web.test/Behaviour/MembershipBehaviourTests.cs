@@ -20,29 +20,29 @@ namespace set.web.test.Behaviour
         {
             //arrange  
             var userService = new Mock<IUserService>();
-            userService.Setup(x => x.Authenticate(VALID_LOGIN_MODEL.Email, VALID_LOGIN_MODEL.Password))
+            userService.Setup(x => x.Authenticate(ValidLogin.Email, ValidLogin.Password))
                        .Returns(Task.FromResult(true));
 
-            userService.Setup(x => x.GetByEmail(VALID_LOGIN_MODEL.Email))
-                       .Returns(Task.FromResult(VALID_USER_ENTITY));
+            userService.Setup(x => x.GetByEmail(ValidLogin.Email))
+                       .Returns(Task.FromResult(ValidUserEntity));
 
             var authService = new Mock<IAuthService>();
-            authService.Setup(x => x.SignIn(VALID_USER_ENTITY.Id, VALID_USER_ENTITY.Name, VALID_USER_ENTITY.Email, ConstHelper.User, true));
+            authService.Setup(x => x.SignIn(ValidUserEntity.Id, ValidUserEntity.Name, ValidUserEntity.Email, ConstHelper.User, true));
 
             ////act
             var sut = new UserControllerBuilder().WithUserService(userService.Object)
                                                  .WithAuthService(authService.Object)
                                                  .Build();
 
-            var result = await sut.Login(VALID_LOGIN_MODEL);
+            var result = await sut.Login(ValidLogin);
 
             ////assert
             Assert.IsNotNull(result);
             Assert.IsAssignableFrom<RedirectResult>(result);
 
-            userService.Verify(x => x.Authenticate(VALID_LOGIN_MODEL.Email, VALID_LOGIN_MODEL.Password), Times.Once);
-            userService.Verify(x => x.GetByEmail(VALID_LOGIN_MODEL.Email), Times.Once);
-            authService.Verify(x => x.SignIn(VALID_USER_ENTITY.Id, VALID_USER_ENTITY.Name, VALID_USER_ENTITY.Email, ConstHelper.User, true), Times.Once);
+            userService.Verify(x => x.Authenticate(ValidLogin.Email, ValidLogin.Password), Times.Once);
+            userService.Verify(x => x.GetByEmail(ValidLogin.Email), Times.Once);
+            authService.Verify(x => x.SignIn(ValidUserEntity.Id, ValidUserEntity.Name, ValidUserEntity.Email, ConstHelper.User, true), Times.Once);
 
             sut.AssertPostAttribute(ACTION_LOGIN, new[] { typeof(LoginModel) });
             sut.AssertAllowAnonymousAttribute(ACTION_LOGIN, new[] { typeof(LoginModel) });

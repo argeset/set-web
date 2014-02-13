@@ -154,7 +154,7 @@ namespace set.web.Controllers
             return Redirect(!string.IsNullOrEmpty(model.ReturnUrl) ? model.ReturnUrl : "/");
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult Logout()
         {
             _authService.SignOut();

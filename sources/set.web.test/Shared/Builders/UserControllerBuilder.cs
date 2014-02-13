@@ -1,9 +1,7 @@
 ﻿using System.Web;
-using System.Web.Mvc;
-using System.Security.Principal;
 
 using Moq;
-using set.web.Configurations;
+
 using set.web.Controllers;
 using set.web.Data.Services;
 
@@ -16,8 +14,8 @@ namespace set.web.test.Shared.Builders
 
         public UserControllerBuilder()
         {
-            _authService = null;
-            _userService = null;
+            _authService = new Mock<IAuthService>().Object;
+            _userService = new Mock<IUserService>().Object;
         }
 
         internal UserControllerBuilder WithAuthService(IAuthService authService)
@@ -38,9 +36,9 @@ namespace set.web.test.Shared.Builders
 
             SetCurrentUser(id,name,email,role);
 
-            httpResponse.Setup(x => x.SetCookie(It.IsAny<HttpCookie>()));
+            HttpResponse.Setup(x => x.SetCookie(It.IsAny<HttpCookie>()));
 
-            sut.ControllerContext = controllerContext.Object;
+            sut.ControllerContext = ControllerContext.Object;
             return sut;
         }
 

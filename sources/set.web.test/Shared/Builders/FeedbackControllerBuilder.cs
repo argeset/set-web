@@ -24,7 +24,7 @@ namespace set.web.test.Shared.Builders
 
             SetCurrentUser(id, name, email, role);
 
-            sut.ControllerContext = controllerContext.Object;
+            sut.ControllerContext = ControllerContext.Object;
             return sut;
         }
 

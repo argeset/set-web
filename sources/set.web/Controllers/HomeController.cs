@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using set.web.Data.Services;
 using set.web.Helpers;
 using set.web.Models;
@@ -16,7 +17,7 @@ namespace set.web.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult Index()
         {
             return View();

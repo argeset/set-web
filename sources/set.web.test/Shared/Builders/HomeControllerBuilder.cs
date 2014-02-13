@@ -1,4 +1,6 @@
-﻿using set.web.Controllers;
+﻿using Moq;
+
+using set.web.Controllers;
 using set.web.Data.Services;
 
 namespace set.web.test.Shared.Builders
@@ -9,7 +11,7 @@ namespace set.web.test.Shared.Builders
 
         public HomeControllerBuilder()
         {
-            _feedbackService = null; 
+            _feedbackService = new Mock<IFeedbackService>().Object; 
         } 
 
         internal HomeControllerBuilder WithFeedbackService(IFeedbackService feedbackService)

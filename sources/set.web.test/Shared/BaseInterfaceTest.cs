@@ -27,6 +27,20 @@ namespace set.web.test.Shared
             Browser = new FirefoxDriver();
         }
 
+        public void LoginAsUser()
+        {
+            LogOut();
+
+            Browser.FindElementById("Email").SendKeys("user@test.com");
+            Browser.FindElementById("Password").SendKeys("password");
+            Browser.FindElementById("frm").Submit();
+        }
+
+        public void LogOut()
+        {
+            GoTo(string.Format("{0}{1}", BASE_URL, ACTION_LOGOUT));
+        }
+
         public void GoTo(string url)
         {
             Browser.Navigate().GoToUrl(url);

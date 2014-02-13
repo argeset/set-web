@@ -14,20 +14,20 @@ namespace set.web.test.Shared
         public const string ACTION_NEW = "New";
         public const string ACTION_CONTACT = "Contact";
          
-        public static readonly ContactMessageModel VALID_CONTACT_MESSAGE_MODEL = new ContactMessageModel
+        public static readonly ContactMessageModel ValidContactMessage = new ContactMessageModel
         {
             Subject = "subject",
             Message = "message",
             Email = "test@test.com"
         };
 
-        public static readonly LoginModel VALID_LOGIN_MODEL = new LoginModel
+        public static readonly LoginModel ValidLogin = new LoginModel
         {
             Password = "pass",
             Email = "test@test.com"
         };
 
-        public static readonly UserModel VALID_USER_MODEL = new UserModel
+        public static readonly UserModel ValidUser = new UserModel
         {
             Name = "name",
             Password = "pass",
@@ -36,7 +36,7 @@ namespace set.web.test.Shared
             Id = Guid.NewGuid().ToNoDashString()
         };
 
-        public static readonly User VALID_USER_ENTITY = new User
+        public static readonly User ValidUserEntity = new User
         {
             Id = "1",
             Name = "name",
