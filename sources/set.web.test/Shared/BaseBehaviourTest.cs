@@ -13,35 +13,62 @@ namespace set.web.test.Shared
         public const string ACTION_LOGOUT = "Logout";
         public const string ACTION_NEW = "New";
         public const string ACTION_CONTACT = "Contact";
-         
-        public static readonly ContactMessageModel ValidContactMessage = new ContactMessageModel
+        public const string ACTION_PASSWORDRESET = "PasswordReset";
+        public const string ACTION_PASSWORDCHANGE = "PasswordChange";
+
+        public const string EMAIL = "test@test.com";
+        public const string PASSWORD = "pass";
+        public const string NAME = "name";
+
+        #region "ValidModels"
+
+        public static readonly ContactMessageModel ValidContactMessageModel = new ContactMessageModel
+                {
+                    Subject = "subject",
+                    Message = "message",
+                    Email = EMAIL
+                };
+
+        public static readonly LoginModel ValidLoginModel = new LoginModel
         {
-            Subject = "subject",
-            Message = "message",
-            Email = "test@test.com"
+            Password = PASSWORD,
+            Email = EMAIL
         };
 
-        public static readonly LoginModel ValidLogin = new LoginModel
+        public static readonly UserModel ValidUserModel = new UserModel
         {
-            Password = "pass",
-            Email = "test@test.com"
-        };
-
-        public static readonly UserModel ValidUser = new UserModel
-        {
-            Name = "name",
-            Password = "pass",
-            Email = "test@test.com",
+            Name = NAME,
+            Password = PASSWORD,
+            Email = EMAIL,
             Language = Thread.CurrentThread.CurrentUICulture.Name,
             Id = Guid.NewGuid().ToNoDashString()
         };
 
+        public static readonly PasswordResetModel ValidPasswordResetModel = new PasswordResetModel
+        {
+            Email = EMAIL
+        };
+
+        public static readonly PasswordChangeModel ValidPasswordChangeModel = new PasswordChangeModel
+        {
+            Email = EMAIL,
+            Password = PASSWORD,
+            Token = "token"
+        };
+
+        #endregion
+
+        #region "ValidEntities"
+        
         public static readonly User ValidUserEntity = new User
         {
             Id = "1",
-            Name = "name",
-            Email = "test@test.com",
+            Name = NAME,
+            Email = EMAIL,
             RoleName = ConstHelper.User
-        }; 
+        };
+        
+        #endregion
+         
     }
 }
