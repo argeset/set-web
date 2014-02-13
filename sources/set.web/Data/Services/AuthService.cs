@@ -1,8 +1,8 @@
 ﻿using System.Web.Security;
 
-namespace set.web.Configurations
+namespace set.web.Data.Services
 {
-    public class FormsAuthenticationService : IFormsAuthenticationService
+    public class AuthService : IAuthService
     {
         public void SignIn(string id, string name, string email, string roleName, bool createPersistentCookie)
         {
@@ -14,8 +14,7 @@ namespace set.web.Configurations
             FormsAuthentication.SignOut();
         }
     }
-
-    public interface IFormsAuthenticationService
+    public interface IAuthService
     {
         void SignIn(string id, string name, string email, string roleName, bool createPersistentCookie);
 

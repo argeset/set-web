@@ -137,7 +137,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\AuthConfig.cs" />
     <Compile Include="Configurations\FilterConfig.cs" />
     <Compile Include="Configurations\IocConfig.cs" />
     <Compile Include="Configurations\RouteConfig.cs" />
@@ -146,6 +145,7 @@
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\Entities\DomainObject.cs" />
+    <Compile Include="Data\Services\AuthService.cs" />
     <Compile Include="Data\Services\DomainObjectService.cs" />
     <Compile Include="Data\Services\MsgService.cs" />
     <Compile Include="Models\DomainObjectModel.cs" />
@@ -178,7 +178,6 @@
     <Compile Include="Data\SetDbContext.cs" />
     <Compile Include="Data\SetDbInitializer.cs" />
     <Compile Include="Data\SetDbMigrationConfiguration.cs" />
-    <Compile Include="Data\Services\FormsAuthenticationService.cs" />
     <Compile Include="Data\Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

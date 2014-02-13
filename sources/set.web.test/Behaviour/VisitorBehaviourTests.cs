@@ -2,8 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using Moq;
 using NUnit.Framework;
+
 using set.web.Data.Services;
 using set.web.Helpers;
 using set.web.Models;
@@ -77,7 +79,7 @@ namespace set.web.test.Behaviour
 
             //act
             var sut = new FeedbackControllerBuilder().WithFeedbackService(feedbackService.Object)
-                                                 .BuildWithMockControllerContext("1","name","test@test.com",ConstHelper.User);
+                                                     .BuildWithMockControllerContext("1","name","test@test.com",ConstHelper.User);
             var result = await sut.New(validModel.Message);
 
             //assert
@@ -118,9 +120,8 @@ namespace set.web.test.Behaviour
 
             sut.AssertPostAttribute(ActionNameContact, new[] { typeof(ContactMessageModel) });
             sut.AssertAllowAnonymousAttribute(ActionNameContact, new[] { typeof(ContactMessageModel) });
-
         }
 
-        public void any_visitor_can_search_meta_data() { }
+        public void any_visitor_can_search_domain_object() { }
     }
 }
