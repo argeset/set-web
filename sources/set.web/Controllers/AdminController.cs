@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using set.web.Data.Entities;
 using set.web.Data.Services;
 using set.web.Helpers;
@@ -17,7 +18,7 @@ namespace set.web.Controllers
         {
             if (User.Identity.GetRoleName() != ConstHelper.Admin)
             {
-                //filterContext.Result = RedirectToHome();
+                filterContext.Result = RedirectToHome();
             }
 
             base.OnActionExecuting(filterContext);
@@ -71,8 +72,6 @@ namespace set.web.Controllers
             return View(model);
         }
 
-<<<<<<< HEAD
-=======
         [HttpGet]
         public async Task<ViewResult> Feedbacks(int id = 1)
         {
@@ -89,7 +88,5 @@ namespace set.web.Controllers
             };
             return View(model);
         }
-
->>>>>>> 1282c2b7d8d6b49e7b0d3216faf7df626f6aaf1f
     }
 }
