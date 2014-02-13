@@ -1,0 +1,26 @@
+﻿@model UserModel
+
+@{
+    ViewBag.Title = Html.LocalizationString("user_profile_view_title");
+}
+
+<div class="row">
+    <h3>@ViewBag.Title</h3>
+    <hr />
+</div>
+
+
+<div class="row">
+    <div class="col-sm-2 col-md-2">
+        <img src="@Model.Email.ToGravatar(200)"
+             alt="" class="img-rounded img-responsive" />
+    </div>
+    <div class="col-sm-4 col-md-4">
+        <blockquote>
+            <p>@Model.Name</p>
+        </blockquote>
+        <p>
+            <i class="glyphicon glyphicon-envelope"></i> @Model.Email
+        </p>
+    </div>
+</div>

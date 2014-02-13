@@ -14,7 +14,7 @@ namespace set.web.Controllers
         private readonly IUserService _userService;
 
         public UserController(
-            IAuthService authService, 
+            IAuthService authService,
             IUserService userService)
         {
             _authService = authService;
@@ -107,6 +107,14 @@ namespace set.web.Controllers
         {
             _authService.SignOut();
             return RedirectToHome();
+        }
+
+        [HttpGet]
+        public new async Task<ViewResult> Profile()
+        {
+            var result = await _userService.Get(User.Identity.GetId());
+            var model = UserModel.Map(result);
+            return View(model);
         }
     }
 }
