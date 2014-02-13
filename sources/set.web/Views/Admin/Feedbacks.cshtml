@@ -1,7 +1,7 @@
-﻿@model PageModel<DomainObjectModel>
+﻿@model PageModel<FeedbackModel>
 
 @{
-    ViewBag.Title = Html.LocalizationString("domainobject_listing_title");
+    ViewBag.Title = Html.LocalizationString("feedbacks_listing_title");
 }
 
 <div class="row">
@@ -11,18 +11,22 @@
 
 <div class="row">
 
+    <div class="col-md-12">
+
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>@Html.LocalizationString("name")</th>
+                        <th>@Html.LocalizationString("email")</th>
+                        <th>@Html.LocalizationString("message")</th>
                     </tr>
                 </thead>
                 <tbody id="tbodyModelItems">
                     @foreach (var item in Model.Items)
                     {
                         <tr>
-                            <td>@item.Name</td>
+                            <td>@item.Email</td>
+                            <td>@item.Message</td>
                         </tr>
                     }
                 </tbody>
@@ -31,7 +35,7 @@
                 @{
                     if (Model.TotalPageCount > 1)
                     {
-                        const string link = "/domainobject/list";
+                        const string link = "/admin/feedbacks";
                         <ul class="pagination">
                             @if (Model.HasPreviousPage)
                             {
@@ -49,5 +53,7 @@
                 }
             </div>
         </div>
+
+    </div>
 
 </div>

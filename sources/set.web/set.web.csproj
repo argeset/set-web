@@ -65,6 +65,7 @@
       <HintPath>..\packages\ServiceStack.Text.4.0.9\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -124,6 +125,7 @@
     <Content Include="Views\User\Detail.cshtml" />
     <Content Include="Views\User\PasswordChange.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Admin\Feedbacks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -149,11 +151,15 @@
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LangController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Data\Entities\DomainObject.cs" />
+    <Compile Include="Data\Entities\SetLocaleRole.cs" />
     <Compile Include="Data\Services\AuthService.cs" />
     <Compile Include="Data\Services\DomainObjectService.cs" />
     <Compile Include="Data\Services\MsgService.cs" />
+    <Compile Include="Data\Services\SearchService.cs" />
     <Compile Include="Models\DomainObjectModel.cs" />
+    <Compile Include="Models\FeedbackModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\Entities\ContactMessage.cs" />

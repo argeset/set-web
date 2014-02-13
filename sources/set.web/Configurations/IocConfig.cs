@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -52,14 +51,14 @@ namespace set.web.Configurations
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IMsgService>().ImplementedBy<MsgService>().LifestylePerWebRequest());
-            container.Register(Component.For<IAuthService>().ImplementedBy<AuthService>().LifestylePerWebRequest());
-
-            Thread.Sleep(2);
-
             container.Register(
-                Component.For<IUserService>().ImplementedBy<UserService>().LifestylePerWebRequest(),
+                Component.For<IMsgService>().ImplementedBy<MsgService>().LifestylePerWebRequest(),
+                Component.For<IAuthService>().ImplementedBy<AuthService>().LifestylePerWebRequest(),
+
                 Component.For<IFeedbackService>().ImplementedBy<FeedbackService>().LifestylePerWebRequest(),
+                Component.For<ISearchService>().ImplementedBy<SearchService>().LifestylePerWebRequest(),
+                Component.For<IUserService>().ImplementedBy<UserService>().LifestylePerWebRequest(),
+
                 Component.For<IDomainObjectService>().ImplementedBy<DomainObjectService>().LifestylePerWebRequest());
         }
     }

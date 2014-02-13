@@ -20,10 +20,10 @@ namespace set.web.test.Behaviour
         {
             //arrange  
             var userService = new Mock<IUserService>();
-            userService.Setup(x => x.Authenticate(ValidLogin.Email, ValidLogin.Password))
+            userService.Setup(x => x.Authenticate(ValidLoginModel.Email, ValidLoginModel.Password))
                        .Returns(Task.FromResult(true));
 
-            userService.Setup(x => x.GetByEmail(ValidLogin.Email))
+            userService.Setup(x => x.GetByEmail(ValidLoginModel.Email))
                        .Returns(Task.FromResult(ValidUserEntity));
 
             var authService = new Mock<IAuthService>();
@@ -34,14 +34,14 @@ namespace set.web.test.Behaviour
                                                  .WithAuthService(authService.Object)
                                                  .Build();
 
-            var result = await sut.Login(ValidLogin);
+            var result = await sut.Login(ValidLoginModel);
 
             ////assert
             Assert.IsNotNull(result);
             Assert.IsAssignableFrom<RedirectResult>(result);
 
-            userService.Verify(x => x.Authenticate(ValidLogin.Email, ValidLogin.Password), Times.Once);
-            userService.Verify(x => x.GetByEmail(ValidLogin.Email), Times.Once);
+            userService.Verify(x => x.Authenticate(ValidLoginModel.Email, ValidLoginModel.Password), Times.Once);
+            userService.Verify(x => x.GetByEmail(ValidLoginModel.Email), Times.Once);
             authService.Verify(x => x.SignIn(ValidUserEntity.Id, ValidUserEntity.Name, ValidUserEntity.Email, ConstHelper.User, true), Times.Once);
 
             sut.AssertPostAttribute(ACTION_LOGIN, new[] { typeof(LoginModel) });
@@ -68,22 +68,49 @@ namespace set.web.test.Behaviour
         }
 
         [Test]
-        public void any_user_can_request_password_reset_link()
+        public async void any_user_can_request_password_reset_link()
         {
             //arrange
+            var userService = new Mock<IUserService>();
+            userService.Setup(x => x.RequestPasswordReset(ValidPasswordResetModel.Email))
+                       .Returns(Task.FromResult(true));
 
             //act
-
+            var sut = new UserControllerBuilder().WithUserService(userService.Object)
+                                                 .Build();
+            var result = await sut.PasswordReset(ValidPasswordResetModel);
+            
             //assert
+            Assert.IsNotNull(result);
+            Assert.IsAssignableFrom<ViewResult>(result);
+
+            userService.Verify(x => x.RequestPasswordReset(ValidPasswordResetModel.Email), Times.Once);
+
+            sut.AssertPostAttribute(ACTION_PASSWORD_RESET, new[] {typeof (PasswordResetModel)});
+            sut.AssertAllowAnonymousAttribute(ACTION_PASSWORD_RESET, new[] { typeof(PasswordResetModel) });
         }
 
-        public void any_user_can_change_password()
+        [Test]
+        public async void any_user_can_change_password()
         {
             //arrange
+            var userService = new Mock<IUserService>();
+            userService.Setup(x => x.ChangePassword(ValidPasswordChangeModel.Email, ValidPasswordChangeModel.Token, ValidPasswordChangeModel.Password))
+                       .Returns(Task.FromResult(true));
 
             //act
+            var sut = new UserControllerBuilder().WithUserService(userService.Object)
+                                                 .Build();
+            var result = await sut.PasswordChange(ValidPasswordChangeModel);
 
             //assert
+            Assert.IsNotNull(result);
+            Assert.IsAssignableFrom<RedirectResult>(result);
+
+            userService.Verify(x => x.ChangePassword(ValidPasswordChangeModel.Email, ValidPasswordChangeModel.Token, ValidPasswordChangeModel.Password), Times.Once);
+
+            sut.AssertPostAttributeWithOutAntiForgeryToken(ACTION_PASSWORD_CHANGE, new[] { typeof(PasswordChangeModel) });
+            sut.AssertAllowAnonymousAttribute(ACTION_PASSWORD_CHANGE, new[] { typeof(PasswordChangeModel) });
         }
     }
 }

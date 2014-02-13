@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 using set.web.Data.Entities;
@@ -158,6 +159,46 @@ namespace set.web.Data.Services
 
             return await Task.FromResult(Context.SaveChanges() > 0);
         }
+
+        public Task<bool> ChangeStatus(string id, bool isActive)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return Task.FromResult(false);
+            }
+
+            var user = Context.Users.Find(id);
+            if (user == null)
+            {
+                return Task.FromResult(false);
+            }
+
+            user.IsActive = !isActive;
+
+            return Task.FromResult(Context.SaveChanges() > 0);
+        }
+
+        public Task<PagedList<User>> GetAllByRoleId(int roleId, int pageNumber)
+        {
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
+            var items = Context.Users.Where(x => x.RoleId == roleId).ToList();
+
+            long totalCount = items.Count();
+            var totalPageCount = (int)Math.Ceiling(totalCount / (double)ConstHelper.PageSize);
+
+            if (pageNumber > totalPageCount)
+            {
+                pageNumber = 1;
+            }
+
+            items = items.OrderByDescending(x => x.Id).Skip(ConstHelper.PageSize * (pageNumber - 1)).Take(ConstHelper.PageSize).ToList();
+
+            return Task.FromResult(new PagedList<User>(pageNumber, ConstHelper.PageSize, totalCount, items));
+        }
     }
 
     public interface IUserService
@@ -174,5 +215,7 @@ namespace set.web.Data.Services
         Task<bool> RequestPasswordReset(string email);
         Task<bool> IsPasswordResetRequestValid(string email, string token);
         Task<bool> ChangePassword(string email, string token, string password);
+        Task<bool> ChangeStatus(string id, bool isActive);
+        Task<PagedList<User>> GetAllByRoleId(int roleId, int pageNumber);
     }
 }
