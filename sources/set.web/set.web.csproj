@@ -117,9 +117,10 @@
     <Content Include="Views\User\New.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\_Msg.cshtml" />
-    <Content Include="Views\User\Reset.cshtml" />
+    <Content Include="Views\User\PasswordReset.cshtml" />
     <Content Include="Views\DomainObject\New.cshtml" />
     <Content Include="Views\DomainObject\List.cshtml" />
+    <Content Include="Views\User\PasswordChange.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -146,6 +147,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\Entities\DomainObject.cs" />
     <Compile Include="Data\Services\DomainObjectService.cs" />
+    <Compile Include="Data\Services\MsgService.cs" />
     <Compile Include="Models\DomainObjectModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -162,7 +164,8 @@
     <Compile Include="Models\ContactMessageModel.cs" />
     <Compile Include="Models\NameValue.cs" />
     <Compile Include="Models\PageModel.cs" />
-    <Compile Include="Models\ResetModel.cs" />
+    <Compile Include="Models\PasswordChangeModel.cs" />
+    <Compile Include="Models\PasswordResetModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\UserModel.cs" />
