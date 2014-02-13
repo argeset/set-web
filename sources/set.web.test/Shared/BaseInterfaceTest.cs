@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium.Firefox;
 
 namespace set.web.test.Shared
@@ -16,6 +15,8 @@ namespace set.web.test.Shared
         public const string ACTION_SIGNUP = "/user/new";
         public const string ACTION_PROFILE = "/user/detail";
 
+        public const string ACTION_NEW_DOMAIN_OBJECT = "/domainobject/new";
+        public const string ACTION_LIST_DOMAIN_OBJECTS = "/domainobject/list";
 
         public FirefoxDriver Browser;
 
