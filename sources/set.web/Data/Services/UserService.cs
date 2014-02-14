@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-
+using System.Web;
+using System.Web.Mvc;
 using set.web.Data.Entities;
 using set.web.Helpers;
 using set.web.Models;
@@ -132,12 +134,12 @@ namespace set.web.Data.Services
         public Task<bool> IsPasswordResetRequestValid(string email, string token)
         {
             if (!email.IsEmail()) return Task.FromResult(false);
-
+            var lifeTime = DateTime.Now.AddHours(-1);
             return Task.FromResult(Context.Users.Any(x => x.IsActive
                                                           && !x.IsDeleted
                                                           && x.Email == email
                                                           && x.PasswordResetToken == token
-                                                          && x.PasswordResetRequestedAt >= DateTime.Now.AddHours(-1)));
+                                                          && x.PasswordResetRequestedAt >= lifeTime));
         }
 
         public async Task<bool> ChangePassword(string email, string token, string password)

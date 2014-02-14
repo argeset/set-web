@@ -98,13 +98,8 @@ namespace set.web.Controllers
         public async Task<ActionResult> PasswordChange(string email, string token)
         {
             var model = new PasswordChangeModel { Email = email, Token = token };
-            SetPleaseTryAgain(model);
-            if (model.IsNotValid())
-            {
-                return View(model);
-            }
 
-            if (await _userService.IsPasswordResetRequestValid(model.Email, model.Token))
+            if (!await _userService.IsPasswordResetRequestValid(model.Email, model.Token))
             {
                 return Redirect("/User/Login");
             }
