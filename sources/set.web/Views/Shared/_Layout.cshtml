@@ -42,7 +42,10 @@
                     }
                 }
             </ul>
-            <form class="navbar-form navbar-left"><input type="text" class="form-control col-lg-8" placeholder="@Html.LocalizationString("search")"></form>
+            <div class="navbar-form navbar-left">
+                <input id="txtSearch" type="text" class="form-control col-lg-8" placeholder="@Html.LocalizationString("search")">
+                <div id="dvSearchResults"></div>
+            </div>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/lang/change/tr"><img src="/public/img/flag/tr.png" alt="Türkçe" /></a></li>
                 <li><a href="/lang/change/en"><img src="/public/img/flag/en.png" alt="English"></a></li>

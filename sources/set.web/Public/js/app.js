@@ -1,4 +1,5 @@
-﻿$(function () {
+﻿// FEEDBACK
+$(function () {
     $('#btnSaveFeedback').click(function () {
         var message = $("#FeedbackMessage").val();
         var fbRetMsg = $("#feedbackReturnMessage");
@@ -21,4 +22,97 @@
         });
     });
     $('#modalFeedback').on('hidden.bs.modal', function () { $("feedbackReturnMessage").html(null); $("#Feedback").val(''); $("label.error").remove(); });
+});
+
+
+// SEARCH
+$(function () {
+
+    $("#txtSearch").focusout(function () {
+        if ($('.popopver').length < 1) {
+            $('#txtSearch').popover('hide');
+        }
+    });
+
+    var queryString, highlightRow;
+
+    $('#txtSearch').keyup(function (key) {
+        if (key.which == 37 || key.which == 39) {
+            // sağ sola okda tekra arama yapmasın diye...
+            // sadece a-z09 kabul etsine çevirmeli...
+        }
+        else {
+            if (key.which == 40) {
+                highlightRow = $('.popover-content').find('.row.highlight');
+                if (highlightRow.length == 0) {
+                    $('.popover-content>.row:first').addClass('highlight');
+                }
+                else {
+                    var nextHighlight = $('.highlight').next('.row');
+                    if (nextHighlight.length > 0) {
+                        $('.highlight').removeClass('highlight');
+                        nextHighlight.addClass('highlight');
+                    }
+                }
+            }
+            else if (key.which == 38) {
+                highlightRow = $('.popover-content').find('.row.highlight');
+                if (highlightRow.length == 0) {
+                    $('.popover-content>.row:last').addClass('highlight');
+                }
+                else {
+                    var prevHighlight = $('.highlight').prev('.row');
+                    if (prevHighlight.length > 0) {
+                        $('.highlight').removeClass('highlight');
+                        prevHighlight.addClass('highlight');
+                    }
+                }
+            }
+            else if (key.which == 13) {
+                highlightRow = $('.highlight');
+                if (highlightRow.length > 0) {
+                    location.href = highlightRow.find('a').attr('href');
+
+                    if (queryString != undefined) {
+                        queryString.abort();
+                    }
+                }
+            }
+            else {
+                queryString = $(this).val();
+                if (queryString.length > 1) {
+                    $('.popover-content:visible').html('');
+                    $('#txtSearch').popover({ content: "Lütfen Bekleyiniz...", title: "", placement: "bottom", container: "body", html: "true" }).popover('show');
+
+                    $.get('/search/query', { text: queryString }, function (r) {
+                        $('.popover-content:visible').html("");
+                        if (r && r.IsOk) {
+                            if (r.Result.length == 0) {
+                                $('.popover-content:visible').html("Sonuç Bulunamadı !");
+                            }
+                            else {
+                                $.each(r.Result, function () {
+                                    var row = $('<div class="row" style="padding:5px;margin-left:-5px;margin-right:-5px;"></div>');
+                                    var li = $('<div class="col-sm-12"></div>').append('<a href="' + this.Url + '"><img style="padding-right:5px;" alt="" src="' + this.ImgUrl + '" />' + this.Name + '</a>');
+                                    row.append(li);
+
+                                    $('.popover-content:visible').append(row);
+                                });
+
+                                $('.popover-content .row').mouseover(function () {
+                                    $(this).addClass('highlight');
+                                });
+                                $('.popover-content .row').mouseout(function () {
+                                    $(this).removeClass('highlight');
+                                });
+                            }
+                        } else {
+                            $('.popover-content:visible').html("Sonuç Bulunamadı !");
+                        }
+                    });
+                }
+            }
+        }
+    });
+
 });
