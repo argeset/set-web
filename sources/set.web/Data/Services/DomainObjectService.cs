@@ -41,9 +41,9 @@ namespace set.web.Data.Services
             return Task.FromResult(new List<DomainObject>(Context.Set<DomainObject>()));
         }
 
-        public Task<List<DomainObject>> Search(string key)
+        public Task<DomainObject> GetId(string id)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(Context.Set<DomainObject>().Find(id));
         }
     }
 
@@ -52,6 +52,6 @@ namespace set.web.Data.Services
         Task<bool> Create(string name, string email);
         Task<PagedList<DomainObject>> GetDomainObjects(int pageNumber);
         Task<List<DomainObject>> GetAll();
-        Task<List<DomainObject>> Search(string key);
+        Task<DomainObject> GetId(string id);
     }
 }

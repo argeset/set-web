@@ -67,5 +67,12 @@ namespace set.web.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<ViewResult> Detail(string id)
+        {
+            var result = await _domainObjectService.GetId(id);
+            var model = DomainObjectModel.Map(result);
+            return View(model);
+        }
     }
 }
