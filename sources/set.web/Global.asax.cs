@@ -60,10 +60,11 @@ namespace set.web
         {
             try
             {
+                const string tag = "set-web";
                 var page = 1;
                 while (page > 0)
                 {
-                    var response = client.GetStringAsync(string.Format("http://setlocale.azurewebsites.net/api/locales?tag=set&lang={0}&page={1}", languageKey, page));
+                    var response = client.GetStringAsync(string.Format("http://setlocale.azurewebsites.net/api/locales?tag={0}&lang={1}&page={2}", tag, languageKey, page));
                     response.Wait();
 
                     var responseBody = response.Result;
@@ -93,7 +94,7 @@ namespace set.web
             }
             catch { }
         }
-        
+
         protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
         {
             HttpContext.Current.Response.Headers.Remove("X-Powered-By");
