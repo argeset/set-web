@@ -7,7 +7,7 @@ namespace set.web.test.Shared
     {
         public const string BASE_URL = "http://localhost:8011";
 
-        public const string ACTION_HOME = "/home/index";
+        public const string ACTION_HOME = "/";
         public const string ACTION_CONTACT = "/home/contact";
 
         public const string ACTION_LOGIN = "/user/login";
@@ -18,6 +18,11 @@ namespace set.web.test.Shared
 
         public const string ACTION_NEW_DOMAIN_OBJECT = "/domainobject/new";
         public const string ACTION_LIST_DOMAIN_OBJECTS = "/domainobject/list";
+
+        public const string ACTION_ADMIN_USER_LISTING = "/admin/users";
+        public const string ACTION_ADMIN_FEEDBACK_LISTING = "/admin/feedbacks";
+        public const string ACTION_ADMIN_CONTACT_MESSAGES_LISTING = "/admin/contactmessages";
+
 
         public FirefoxDriver Browser;
 
