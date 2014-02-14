@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using set.web.test.Shared;
 
 namespace set.web.test.Interface
@@ -16,10 +17,13 @@ namespace set.web.test.Interface
             GoTo(homeUrl);
 
             Browser.FindElementById("btnOpenFeedBack").Click();
+            
+            Browser.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
+
             Browser.FindElementById("FeedbackMessage").SendKeys("test feedback");
             Browser.FindElementById("btnSaveFeedback").Click();
 
-            Browser.Manage().Timeouts().SetScriptTimeout(TimeSpan.FromSeconds(5));
+            Browser.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
 
             Assert.IsFalse(Browser.FindElementById("modalFeedback").Displayed);
 
