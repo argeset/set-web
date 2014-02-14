@@ -16,15 +16,15 @@ namespace set.web.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public async Task<JsonResult> Query(string q)
+        public async Task<JsonResult> Query(string text)
         {
             var model = new ResponseModel { IsOk = false };
-            if (string.IsNullOrWhiteSpace(q))
+            if (string.IsNullOrWhiteSpace(text))
             {
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
 
-            var result = await _searchService.Query(q);
+            var result = await _searchService.Query(text);
             if (result == null)
             {
                 return Json(model, JsonRequestBehavior.AllowGet);

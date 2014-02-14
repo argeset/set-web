@@ -36,7 +36,8 @@ namespace set.web.Data.Services
                 result.Add(new SearchResult
                 {
                     Name = item.Name,
-                    Url = string.Format("/domainobject/detail/{0}", item.Id)
+                    Url = string.Format("/domainobject/detail/{0}", item.Id),
+                    ImgUrl = string.Empty
                 });
             }
 
