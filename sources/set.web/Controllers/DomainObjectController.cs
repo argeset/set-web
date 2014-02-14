@@ -68,9 +68,12 @@ namespace set.web.Controllers
         }
 
         [HttpGet]
-        public async Task<ViewResult> Detail(string id)
+        public async Task<ActionResult> Detail(string id)
         {
-            var result = await _domainObjectService.GetId(id);
+            var result = await _domainObjectService.Get(id);
+
+            if (result == null) return RedirectToHome();
+
             var model = DomainObjectModel.Map(result);
             return View(model);
         }

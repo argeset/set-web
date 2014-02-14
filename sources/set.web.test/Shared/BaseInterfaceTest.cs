@@ -18,6 +18,7 @@ namespace set.web.test.Shared
 
         public const string ACTION_NEW_DOMAIN_OBJECT = "/domainobject/new";
         public const string ACTION_LIST_DOMAIN_OBJECTS = "/domainobject/list";
+        public const string ACTION_DETAIL_DOMAIN_OBJECTS = "/domainobject/detail";
 
         public const string ACTION_ADMIN_USER_LISTING = "/admin/users";
         public const string ACTION_ADMIN_FEEDBACK_LISTING = "/admin/feedbacks";

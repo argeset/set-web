@@ -27,7 +27,8 @@ namespace set.web.test.Interface
         [TestCase(ACTION_USER_PROFILE),
         
          TestCase(ACTION_NEW_DOMAIN_OBJECT),
-         TestCase(ACTION_LIST_DOMAIN_OBJECTS)]
+         TestCase(ACTION_LIST_DOMAIN_OBJECTS),
+        TestCase(ACTION_DETAIL_DOMAIN_OBJECTS)]
         public void should_view_after_login_as_user(string view)
         {
             LoginAsUser();
