@@ -22,7 +22,6 @@ namespace set.web.Data
             #region Users
 
             AddUser(context, ConstHelper.Admin, "admin@test.com", ConstHelper.Admin);
-            AddUser(context, ConstHelper.Developer, "dev@test.com", ConstHelper.Developer);
             AddUser(context, ConstHelper.User, "user@test.com", ConstHelper.User);
 
             #endregion

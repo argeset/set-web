@@ -38,6 +38,17 @@ namespace set.web.test.Shared
             Browser.FindElementById("frm").Submit();
         }
 
+        public void LoginAsAdmin()
+        {
+            LogOut();
+
+            GoTo(string.Format("{0}{1}", BASE_URL, ACTION_LOGIN));
+
+            Browser.FindElementById("Email").SendKeys("admin@test.com");
+            Browser.FindElementById("Password").SendKeys("password");
+            Browser.FindElementById("frm").Submit();
+        }
+
         public void LogOut()
         {
             GoTo(string.Format("{0}{1}", BASE_URL, ACTION_LOGOUT));

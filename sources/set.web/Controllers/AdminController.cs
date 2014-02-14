@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-using set.web.Data.Entities;
 using set.web.Data.Services;
 using set.web.Helpers;
 using set.web.Models;
@@ -37,26 +36,15 @@ namespace set.web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Users(int id = 0, int page = 1)
+        public async Task<ActionResult> Users(int id = 1)
         {
-            var pageNumber = page;
+            var pageNumber = id;
             if (pageNumber < 1)
             {
                 pageNumber = 1;
             }
 
-            PagedList<User> users;
-
-            ViewBag.RoleId = id;
-            if (SetLocaleRole.IsValid(id))
-            {
-                users = await _userService.GetAllByRoleId(id, pageNumber);
-            }
-            else
-            {
-                users = await _userService.GetUsers(pageNumber);
-            }
-
+            var users = await _userService.GetUsers(pageNumber);
             var list = users.Items.Select(UserModel.Map).ToList();
 
             var model = new PageModel<UserModel>

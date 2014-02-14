@@ -31,12 +31,12 @@
                         <td>
                             @if (User.Identity.GetId() != item.Id)
                             {
-                                <button class="btn btn-sm @buttonCss btnAction" data-toggle="modal" href="#DeactivateModal" data-id="@item.Id" data-isactive="@item.IsActive">@val</button>
+                                <button class="btn btn-sm @buttonCss btnAction" data-toggle="modal" data-target="#DeactivateModal" data-id="@item.Id" data-isactive="@item.IsActive">@val</button>
                             }
                         </td>
                         <td>@item.Name</td>
                         <td>@item.Email</td>
-                        <td><a href="@link/@item.RoleId">@item.RoleName</a></td>
+                        <td>@item.RoleName</td>
                     </tr>
                 }
             </tbody>
@@ -45,19 +45,19 @@
                     <td>
                         <div>
                             @{
-                                if (Model.HasNextPage || Model.HasPreviousPage)
+                                if (Model.TotalPageCount > 1)
                                 {
                                     <ul class="pagination">
                                         @if (Model.HasPreviousPage)
                                         {
-                                            <li><a href="@link/@ViewBag.RoleId?page=@(Model.Number-1)">&laquo;</a></li>
+                                            <li><a href="@link/@(Model.Number-1)">&laquo;</a></li>
                                         }
 
-                                        <li><a href="@link/@ViewBag.RoleId?page=@(Model.Number)">@(Model.Number)</a></li>
+                                        <li><a href="@link/@(Model.Number)">@(Model.Number)</a></li>
 
                                         @if (Model.HasNextPage)
                                         {
-                                            <li><a href="@link/@ViewBag.RoleId?page=@(Model.Number+1)">&raquo;</a></li>
+                                            <li><a href="@link/@(Model.Number+1)">&raquo;</a></li>
                                         }
                                     </ul>
                                     <br />
