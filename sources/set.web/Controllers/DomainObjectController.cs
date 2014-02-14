@@ -42,7 +42,7 @@ namespace set.web.Controllers
             model.IsOk = await _domainObjectService.Create(model.Name, User.Identity.GetEmail());
             if (!model.IsOk) return View(model);
 
-            if (!model.IsButtonSaveAndNew) return RedirectToAction("List");
+            if (!model.IsButtonSaveAndNew) return RedirectToAction("list");
 
             model.IsOk = true;
             model.Name = string.Empty;
