@@ -24,6 +24,8 @@ namespace set.web.test.Shared
         public const string ACTION_ADMIN_FEEDBACK_LISTING = "/admin/feedbacks";
         public const string ACTION_ADMIN_CONTACT_MESSAGES_LISTING = "/admin/contactmessages";
 
+        public const string ACTION_SEARCH_QUERY_JSON_RESULT = "/search/query?text=key";
+
 
         public FirefoxDriver Browser;
 

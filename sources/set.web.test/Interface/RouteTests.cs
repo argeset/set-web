@@ -24,6 +24,17 @@ namespace set.web.test.Interface
             CloseBrowser();
         }
 
+        [TestCase(ACTION_SEARCH_QUERY_JSON_RESULT)]
+        public void should_json_result_query(string view)
+        {
+            var url = string.Format("{0}{1}", BASE_URL, view);
+
+            GoTo(url);
+            AssertUrl(url);
+
+            CloseBrowser();
+        }
+
         [TestCase(ACTION_USER_PROFILE),
         
          TestCase(ACTION_NEW_DOMAIN_OBJECT),
