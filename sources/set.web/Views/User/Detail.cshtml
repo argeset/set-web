@@ -1,7 +1,7 @@
 ﻿@model UserModel
 
 @{
-    ViewBag.Title = Html.LocalizationString("user_detail_view_title");
+    ViewBag.Title = Model.Name;
 }
 
 <div class="row">
@@ -12,15 +12,17 @@
 
 <div class="row">
     <div class="col-sm-2 col-md-2">
-        <img src="@Model.Email.ToGravatar(200)"
-             alt="" class="img-rounded img-responsive" />
+        <img src="@Model.Email.ToGravatar(200)" alt="@Model.Name" class="img-rounded img-responsive" />
     </div>
     <div class="col-sm-4 col-md-4">
-        <blockquote>
-            <p>@Model.Name</p>
-        </blockquote>
         <p>
             <i class="glyphicon glyphicon-envelope"></i> @Model.Email
         </p>
+
+        <form method="post" action="/user/passwordreset">
+            <input type="hidden" id="Email" name="Email" value="@Model.Email" />
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">@Html.LocalizationString("btn_send_password_reset_link")</button>
+        </form>
     </div>
 </div>

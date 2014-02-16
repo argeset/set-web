@@ -110,7 +110,11 @@
 
     <script src="//s.setcrm.com/js/jquery.2.1.0.js"></script>
     <script src="//s.setcrm.com/js/bootstrap.3.0.3.js"></script>
-    <script src="/public/js/app.js?v=2"></script>
+    <script>
+        var textNoResult = '@Html.LocalizationString("nothing_found")';
+        var textPleaseWait = '@Html.LocalizationString("please_wait")';
+    </script>
+    <script src="/public/js/app.js?v=1"></script>
     @RenderSection("Script", false)
 
 </body>
