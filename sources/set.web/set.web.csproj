@@ -137,7 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Public\css\app.css" />
-    <Content Include="Public\css\boot.css" />
     <Content Include="Public\img\flag\en.png" />
     <Content Include="Public\img\flag\tr.png" />
     <Content Include="Public\js\app.js" />

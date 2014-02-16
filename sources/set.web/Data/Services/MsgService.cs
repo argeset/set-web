@@ -2,14 +2,14 @@
 {
     public class MsgService : IMsgService
     {
-        public void SendMail(string email, string subject, string htmlBody)
+        public void SendEMail(string email, string subject, string htmlBody)
         {
-            throw new System.NotImplementedException();
+            //todo:implement your mail sending logic
         }
     }
 
     public interface IMsgService
     {
-        void SendMail(string email, string subject, string htmlBody);
+        void SendEMail(string email, string subject, string htmlBody);
     }
 }

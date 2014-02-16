@@ -35,7 +35,7 @@ namespace set.web.Controllers
 
             if (model.IsOk)
             {
-                model.Msg = SetHtmlHelper.LocalizationString("data_saved_successfully_msg");
+                model.Msg = "data_saved_successfully_msg".Localize();
             }
 
             return Json(model, JsonRequestBehavior.DenyGet);

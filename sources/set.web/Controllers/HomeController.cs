@@ -48,7 +48,7 @@ namespace set.web.Controllers
             model.IsOk = await _feedbackService.CreateContactMessage(model.Subject, model.Email, model.Message);
             if (model.IsOk)
             {
-                model.Msg = SetHtmlHelper.LocalizationString("data_saved_successfully_msg");
+                model.Msg = "data_saved_successfully_msg".Localize();
             }
 
             return View(model);

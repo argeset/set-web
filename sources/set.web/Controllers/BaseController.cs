@@ -8,13 +8,6 @@ namespace set.web.Controllers
 {
     public class BaseController : Controller
     {
-        public HtmlHelper SetHtmlHelper;
-
-        public BaseController()
-        {
-            SetHtmlHelper = new HtmlHelper(new ViewContext(), new ViewPage());
-        }
-
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             SetLanguage();
@@ -48,7 +41,7 @@ namespace set.web.Controllers
 
         public void SetPleaseTryAgain(BaseModel model)
         {
-            model.Msg = SetHtmlHelper.LocalizationString("please_check_the_fields_and_try_again");
+            model.Msg = "please_check_the_fields_and_try_again".Localize();
         }
     }
 }

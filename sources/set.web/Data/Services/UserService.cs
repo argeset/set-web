@@ -38,7 +38,6 @@ namespace set.web.Data.Services
             return Task.FromResult(Context.SaveChanges() > 0);
         }
 
-
         public Task<PagedList<User>> GetUsers(int pageNumber)
         {
             if (pageNumber < 1)
@@ -46,7 +45,7 @@ namespace set.web.Data.Services
                 pageNumber = 1;
             }
 
-            var query = Context.Set<User>().Where(x => !x.IsDeleted);
+            var query = Context.Users.Where(x => !x.IsDeleted);
 
             var count = query.Count();
             var items = query.OrderByDescending(x => x.Id).Skip(ConstHelper.PageSize * (pageNumber - 1)).Take(ConstHelper.PageSize).ToList();
@@ -54,12 +53,11 @@ namespace set.web.Data.Services
             return Task.FromResult(new PagedList<User>(pageNumber, ConstHelper.PageSize, count, items));
         }
 
-
         public Task<User> Get(string userId)
         {
             if (string.IsNullOrEmpty(userId)) return null;
 
-            var user = Context.Set<User>().FirstOrDefault(x => x.Id == userId && !x.IsDeleted);
+            var user = Context.Users.FirstOrDefault(x => x.Id == userId && !x.IsDeleted);
             return Task.FromResult(user);
         }
 
@@ -67,16 +65,15 @@ namespace set.web.Data.Services
         {
             if (!email.IsEmail()) return null;
 
-            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email && !x.IsDeleted);
+            var user = Context.Users.FirstOrDefault(x => x.Email == email && !x.IsDeleted);
             return Task.FromResult(user);
         }
-
 
         public Task<bool> Authenticate(string email, string password)
         {
             if (!email.IsEmail() || string.IsNullOrEmpty(password)) return Task.FromResult(false);
 
-            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email && x.IsActive && !x.IsDeleted);
+            var user = Context.Users.FirstOrDefault(x => x.Email == email && x.IsActive && !x.IsDeleted);
             if (user == null) return Task.FromResult(false);
 
             var result = false;
@@ -97,8 +94,7 @@ namespace set.web.Data.Services
 
             return Task.FromResult(result);
         }
-
-
+        
         public Task<bool> RequestPasswordReset(string email)
         {
             if (!email.IsEmail()) return Task.FromResult(false);
@@ -122,7 +118,7 @@ namespace set.web.Data.Services
 
             if (saved)
             {
-                _msgService.SendMail(user.Email, LocalizationHelper.LocalizationString("password_reset_email_subject"), string.Format(LocalizationHelper.LocalizationString("password_reset_email"), user.Email, token));
+                _msgService.SendEMail(user.Email, LocalizationHelper.LocalizationString("password_reset_email_subject"), string.Format(LocalizationHelper.LocalizationString("password_reset_email"), user.Email, token));
             }
 
             return Task.FromResult(saved);
@@ -176,28 +172,6 @@ namespace set.web.Data.Services
 
             return Task.FromResult(Context.SaveChanges() > 0);
         }
-
-        public Task<PagedList<User>> GetAllByRoleId(int roleId, int pageNumber)
-        {
-            if (pageNumber < 1)
-            {
-                pageNumber = 1;
-            }
-
-            var items = Context.Users.Where(x => x.RoleId == roleId).ToList();
-
-            long totalCount = items.Count();
-            var totalPageCount = (int)Math.Ceiling(totalCount / (double)ConstHelper.PageSize);
-
-            if (pageNumber > totalPageCount)
-            {
-                pageNumber = 1;
-            }
-
-            items = items.OrderByDescending(x => x.Id).Skip(ConstHelper.PageSize * (pageNumber - 1)).Take(ConstHelper.PageSize).ToList();
-
-            return Task.FromResult(new PagedList<User>(pageNumber, ConstHelper.PageSize, totalCount, items));
-        }
     }
 
     public interface IUserService
@@ -214,7 +188,7 @@ namespace set.web.Data.Services
         Task<bool> RequestPasswordReset(string email);
         Task<bool> IsPasswordResetRequestValid(string email, string token);
         Task<bool> ChangePassword(string email, string token, string password);
+
         Task<bool> ChangeStatus(string id, bool isActive);
-        Task<PagedList<User>> GetAllByRoleId(int roleId, int pageNumber);
     }
 }

@@ -88,7 +88,7 @@ namespace set.web.Controllers
             var isOk = await _userService.RequestPasswordReset(model.Email);
             if (isOk)
             {
-                model.Msg = SetHtmlHelper.LocalizationString("password_reset_request_successful");
+                model.Msg = "password_reset_request_successful".Localize();
             }
 
             return View(model);
