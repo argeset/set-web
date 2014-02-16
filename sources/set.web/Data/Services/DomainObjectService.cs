@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 
 using set.web.Data.Entities;
@@ -9,15 +8,15 @@ namespace set.web.Data.Services
 {
     public class DomainObjectService : BaseService, IDomainObjectService
     {
-        public Task<bool> Create(string name, string email)
+        public Task<bool> Create(string name, string updatedBy)
         {
-            var model = new DomainObject { Name = name };
+            var user = Context.Users.FirstOrDefault(x => x.Id == updatedBy);
+            if (user == null) return Task.FromResult(false);
 
-            var user = Context.Set<User>().FirstOrDefault(x => x.Email == email);
-            if (user != null)
-                model.CreatedBy = user.Id;
+            var model = new DomainObject { Name = name, CreatedBy = user.Id };
 
-            Context.Set<DomainObject>().Add(model);
+            Context.DomainObjects.Add(model);
+
             return Task.FromResult(Context.SaveChanges() > 0);
         }
 
@@ -36,11 +35,6 @@ namespace set.web.Data.Services
             return Task.FromResult(new PagedList<DomainObject>(pageNumber, ConstHelper.PageSize, count, items));
         }
 
-        public Task<List<DomainObject>> GetAll()
-        {
-            return Task.FromResult(new List<DomainObject>(Context.Set<DomainObject>()));
-        }
-
         public Task<DomainObject> Get(string id)
         {
             return Task.FromResult(Context.Set<DomainObject>().Find(id));
@@ -49,9 +43,10 @@ namespace set.web.Data.Services
 
     public interface IDomainObjectService
     {
-        Task<bool> Create(string name, string email);
+        Task<bool> Create(string name, string updatedBy);
+        
         Task<PagedList<DomainObject>> GetDomainObjects(int pageNumber);
-        Task<List<DomainObject>> GetAll();
+
         Task<DomainObject> Get(string id);
     }
 }

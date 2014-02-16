@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System.Web;
+using Moq;
 
 using set.web.Controllers;
 using set.web.Data.Services;
@@ -14,10 +15,22 @@ namespace set.web.test.Shared.Builders
             _domainObjectService = new Mock<IDomainObjectService>().Object;
         }
 
-        internal DomainObjectControllerBuilder WithSearchService(IDomainObjectService feedbackService)
+        internal DomainObjectControllerBuilder WithDomainObjectService(IDomainObjectService domainObjectService)
         {
-            _domainObjectService = feedbackService;
+            _domainObjectService = domainObjectService;
             return this;
+        }
+
+        internal DomainObjectController BuildWithMockControllerContext(string id, string name, string email, string role)
+        {
+            var sut = Build();
+
+            SetCurrentUser(id, name, email, role);
+
+            HttpResponse.Setup(x => x.SetCookie(It.IsAny<HttpCookie>()));
+
+            sut.ControllerContext = ControllerContext.Object;
+            return sut;
         }
 
         internal DomainObjectController Build()

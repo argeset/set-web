@@ -9,11 +9,9 @@ namespace set.web.test.Interface
     {
         [TestCase(ACTION_HOME),
          TestCase(ACTION_CONTACT),
-
          TestCase(ACTION_LOGIN),
          TestCase(ACTION_SIGNUP),
-         TestCase(ACTION_PASSWORD_RESET),
-         ]
+         TestCase(ACTION_PASSWORD_RESET)]
         public void should_view(string view)
         {
             var url = string.Format("{0}{1}", BASE_URL, view);
@@ -24,9 +22,14 @@ namespace set.web.test.Interface
             CloseBrowser();
         }
 
-        [TestCase(ACTION_SEARCH_QUERY_JSON_RESULT)]
-        public void should_json_result_query(string view)
+        [TestCase(ACTION_USER_PROFILE),
+         TestCase(ACTION_NEW_DOMAIN_OBJECT),
+         TestCase(ACTION_LIST_DOMAIN_OBJECTS),
+         TestCase(ACTION_DOMAIN_OBJECT_DETAIL)]
+        public void should_view_after_login_as_user(string view)
         {
+            LoginAsUser();
+
             var url = string.Format("{0}{1}", BASE_URL, view);
 
             GoTo(url);
@@ -36,18 +39,20 @@ namespace set.web.test.Interface
         }
 
         [TestCase(ACTION_USER_PROFILE),
-        
          TestCase(ACTION_NEW_DOMAIN_OBJECT),
          TestCase(ACTION_LIST_DOMAIN_OBJECTS),
-         TestCase(ACTION_DETAIL_DOMAIN_OBJECTS)]
-        public void should_view_after_login_as_user(string view)
+         TestCase(ACTION_DOMAIN_OBJECT_DETAIL)]
+        public void should_redirect_to_login_if_requested_anonymous(string view)
         {
-            LoginAsUser();
+            LogOut();
 
             var url = string.Format("{0}{1}", BASE_URL, view);
+            var loginUrl = string.Format("{0}{1}", BASE_URL, ACTION_LOGIN);
 
             GoTo(url);
-            AssertUrl(url);
+
+            Assert.IsNotNull(Browser);
+            Assert.True(Browser.Url.ToLowerInvariant().StartsWith(loginUrl));
 
             CloseBrowser();
         }
@@ -81,6 +86,17 @@ namespace set.web.test.Interface
 
             Assert.IsNotNull(Browser);
             Assert.AreEqual(Browser.Url, homeUrl);
+
+            CloseBrowser();
+        }
+
+        [Test]
+        public void should_search()
+        {
+            var url = string.Format("{0}{1}", BASE_URL, ACTION_SEARCH_QUERY);
+
+            GoTo(url);
+            AssertUrl(url);
 
             CloseBrowser();
         }

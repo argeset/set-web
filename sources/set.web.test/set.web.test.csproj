@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\MembershipBehaviourTests.cs" />
+    <Compile Include="Behaviour\OtherBehaviourTests.cs" />
     <Compile Include="Behaviour\VisitorBehaviourTests.cs" />
     <Compile Include="Interface\FormTests.cs" />
     <Compile Include="Interface\RouteTests.cs" />

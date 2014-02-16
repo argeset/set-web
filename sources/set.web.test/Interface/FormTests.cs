@@ -1,7 +1,7 @@
 ﻿using System;
+
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+
 using set.web.test.Shared;
 
 namespace set.web.test.Interface
@@ -31,12 +31,11 @@ namespace set.web.test.Interface
         }
 
         [Test]
-        public void domainobject_save_and_new_after_only_save_form()
+        public void should_save_domainobject_and_new_one_after()
         {
             LoginAsUser();
 
             var url = string.Format("{0}{1}", BASE_URL, ACTION_NEW_DOMAIN_OBJECT);
-            var domainObjListUrl = string.Format("{0}{1}", BASE_URL, ACTION_LIST_DOMAIN_OBJECTS);
 
             GoTo(url);
 
@@ -46,7 +45,20 @@ namespace set.web.test.Interface
             Assert.IsNotNull(Browser);
             Assert.AreEqual(Browser.Url, url);
 
-            Browser.FindElementById("Name").SendKeys("test domain obj with only save");
+            CloseBrowser();
+        }
+
+        [Test]
+        public void should_save_domainobject_and_redirect_to_list()
+        {
+            LoginAsUser();
+
+            var url = string.Format("{0}{1}", BASE_URL, ACTION_NEW_DOMAIN_OBJECT);
+            var domainObjListUrl = string.Format("{0}{1}", BASE_URL, ACTION_LIST_DOMAIN_OBJECTS);
+
+            GoTo(url);
+
+            Browser.FindElementById("Name").SendKeys("test domain obj");
             Browser.FindElementById("btnSave").Click();
 
             Assert.IsNotNull(Browser);

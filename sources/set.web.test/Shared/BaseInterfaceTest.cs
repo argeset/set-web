@@ -18,13 +18,13 @@ namespace set.web.test.Shared
 
         public const string ACTION_NEW_DOMAIN_OBJECT = "/domainobject/new";
         public const string ACTION_LIST_DOMAIN_OBJECTS = "/domainobject/list";
-        public const string ACTION_DETAIL_DOMAIN_OBJECTS = "/domainobject/detail";
+        public const string ACTION_DOMAIN_OBJECT_DETAIL = "/domainobject/detail";
 
         public const string ACTION_ADMIN_USER_LISTING = "/admin/users";
         public const string ACTION_ADMIN_FEEDBACK_LISTING = "/admin/feedbacks";
         public const string ACTION_ADMIN_CONTACT_MESSAGES_LISTING = "/admin/contactmessages";
 
-        public const string ACTION_SEARCH_QUERY_JSON_RESULT = "/search/query?text=key";
+        public const string ACTION_SEARCH_QUERY = "/search/query?text=key";
 
 
         public FirefoxDriver Browser;

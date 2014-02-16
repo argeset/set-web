@@ -39,7 +39,7 @@ namespace set.web.Controllers
                 return View(model);
             }
 
-            model.IsOk = await _domainObjectService.Create(model.Name, User.Identity.GetEmail());
+            model.IsOk = await _domainObjectService.Create(model.Name, User.Identity.GetId());
             if (!model.IsOk) return View(model);
 
             if (!model.IsButtonSaveAndNew) return RedirectToAction("list");
