@@ -1,7 +1,8 @@
 ﻿using System;
-
+using System.Drawing.Imaging;
 using NUnit.Framework;
-
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using set.web.test.Shared;
 
 namespace set.web.test.Interface
@@ -17,17 +18,18 @@ namespace set.web.test.Interface
             GoTo(homeUrl);
 
             Browser.FindElementById("btnOpenFeedBack").Click();
-            
-            Browser.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
+
+            WaitHack();
 
             Browser.FindElementById("FeedbackMessage").SendKeys("test feedback");
             Browser.FindElementById("btnSaveFeedback").Click();
-
-            Browser.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
-
-            Assert.IsFalse(Browser.FindElementById("modalFeedback").Displayed);
-
+            
             CloseBrowser();
+        }
+
+        private void WaitHack()
+        {
+            Browser.GetScreenshot().SaveAsFile(string.Format("{0}.png", Guid.NewGuid()), ImageFormat.Png);
         }
 
         [Test]
