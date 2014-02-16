@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing.Imaging;
+
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+
 using set.web.test.Shared;
 
 namespace set.web.test.Interface
