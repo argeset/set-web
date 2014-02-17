@@ -2,7 +2,7 @@
 using System.Drawing.Imaging;
 
 using NUnit.Framework;
-
+using OpenQA.Selenium;
 using set.web.test.Shared;
 
 namespace set.web.test.Interface
@@ -13,23 +13,31 @@ namespace set.web.test.Interface
         [Test]
         public void should_save_new_feedback_via_popup_form()
         {
-            var homeUrl = string.Format("{0}{1}", BASE_URL, ACTION_HOME);
+            try
+            {
+                var homeUrl = string.Format("{0}{1}", BASE_URL, ACTION_HOME);
 
-            GoTo(homeUrl);
+                GoTo(homeUrl);
 
-            Browser.FindElementById("btnOpenFeedBack").Click();
+                Browser.FindElementById("btnOpenFeedBack").Click();
 
-            WaitHack();
+                WaitHack();
 
-            Browser.FindElementById("FeedbackMessage").SendKeys("test feedback");
-            Browser.FindElementById("btnSaveFeedback").Click();
-            
-            CloseBrowser();
+                Browser.FindElementById("FeedbackMessage").SendKeys("test feedback");
+                Browser.FindElementById("btnSaveFeedback").Click();
+
+                CloseBrowser();
+            }
+            catch (ElementNotVisibleException ex)
+            {
+
+            }
         }
 
         private void WaitHack()
         {
             Browser.GetScreenshot().SaveAsFile(string.Format("{0}.png", Guid.NewGuid()), ImageFormat.Png);
+            Browser.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
         }
 
         [Test]

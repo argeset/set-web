@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 
 using set.web.Data.Services;
@@ -50,7 +49,6 @@ namespace set.web.Controllers
             {
                 _authService.SignOut();
             }
-
 
             return View();
         }

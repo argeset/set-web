@@ -188,7 +188,6 @@
     <Compile Include="Data\Entities\Feedback.cs" />
     <Compile Include="Data\Entities\User.cs" />
     <Compile Include="Data\SetDbContext.cs" />
-    <Compile Include="Data\SetDbInitializer.cs" />
     <Compile Include="Data\SetDbMigrationConfiguration.cs" />
     <Compile Include="Data\Services\UserService.cs" />
   </ItemGroup>

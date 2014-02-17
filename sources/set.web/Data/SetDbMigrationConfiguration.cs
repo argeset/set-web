@@ -39,8 +39,6 @@ namespace set.web.Data
                 RoleName = role,
                 ImageUrl = email.ToGravatar(),
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("password"),
-                LastLoginAt = DateTime.Now,
-                IsActive = true,
                 Language = ConstHelper.CultureNameEN
             };
             context.Users.Add(user);

@@ -1,7 +1,7 @@
 ﻿@model DomainObjectModel
 
 @{
-    ViewBag.Title = Html.LocalizationString("domainobject_detail_view_title");
+    ViewBag.Title = Html.Localize("domainobject_detail_view_title");
 }
 
 <div class="row">
@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-6">
 
-        <label for="Name">@Html.LocalizationString("name")</label>
+        <label for="Name">@Html.Localize("name")</label>
         <div>@Model.Name</div>
 
     </div>

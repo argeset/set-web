@@ -21,4 +21,9 @@ namespace set.web.Data
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<DomainObject> DomainObjects { get; set; }
     }
+
+    public class SetDbInitializer : MigrateDatabaseToLatestVersion<SetDbContext, SetDbMigrationConfiguration>
+    {
+
+    }
 }

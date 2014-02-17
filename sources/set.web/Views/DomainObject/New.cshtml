@@ -1,7 +1,7 @@
 ﻿@model DomainObjectModel
 
 @{
-    ViewBag.Title = Html.LocalizationString("new_domainobject_view_title");
+    ViewBag.Title = Html.Localize("new_domainobject_view_title");
 }
 
 <div class="row">
@@ -17,7 +17,7 @@
         <form method="post">
 
             <div class="form-group">
-                <label for="Name">@Html.LocalizationString("name")</label>
+                <label for="Name">@Html.Localize("name")</label>
                 <input id="Name" name="Name" type="text" class="form-control" value="@Model.Name" required />
             </div>
 
@@ -25,8 +25,8 @@
 
             
 
-            <button id="btnSave" type="submit" class="btn btn-primary" value="false">@Html.LocalizationString("btn_save")</button>
-            <button id="btnSaveAndNew" type="submit" class="btn btn-info" value="true">@Html.LocalizationString("btn_save_and_new")</button>
+            <button id="btnSave" type="submit" class="btn btn-primary" value="false">@Html.Localize("btn_save")</button>
+            <button id="btnSaveAndNew" type="submit" class="btn btn-info" value="true">@Html.Localize("btn_save_and_new")</button>
             <input id="ClickedButton" name="IsButtonSaveAndNew" type="hidden" />
 
 

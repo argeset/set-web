@@ -1,7 +1,7 @@
 ﻿@model PageModel<FeedbackModel>
 
 @{
-    ViewBag.Title = Html.LocalizationString("feedbacks_listing_title");
+    ViewBag.Title = Html.Localize("feedbacks_listing_title");
     const string link = "/admin/feedbacks";
 }
 
@@ -16,8 +16,8 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>@Html.LocalizationString("email")</th>
-                    <th>@Html.LocalizationString("message")</th>
+                    <th>@Html.Localize("email")</th>
+                    <th>@Html.Localize("message")</th>
                 </tr>
             </thead>
             <tbody id="tbodyModelItems">
@@ -48,7 +48,7 @@
                                         }
                                     </ul>
                                     <br />
-                                    <span class="label label-primary">@Html.LocalizationString("total_page_count") : @Model.TotalPageCount</span>
+                                    <span class="label label-primary">@Html.Localize("total_page_count") : @Model.TotalPageCount</span>
                                 }
                             }
                         </div>

@@ -20,10 +20,10 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Html.LocalizationString("menu_domain_object") <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Html.Localize("menu_domain_object") <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/domainobject/new">@Html.LocalizationString("menu_domain_object_new")</a></li>
-                            <li><a href="/domainobject/list">@Html.LocalizationString("menu_domain_object_list")</a></li>
+                            <li><a href="/domainobject/new">@Html.Localize("menu_domain_object_new")</a></li>
+                            <li><a href="/domainobject/list">@Html.Localize("menu_domain_object_list")</a></li>
                             <li class="divider"></li>
                         </ul>
                     </li>
@@ -31,11 +31,11 @@
                     if (User.Identity.GetRoleName() == ConstHelper.Admin)
                     {
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Html.LocalizationString("admin") <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Html.Localize("admin") <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/admin/users">@Html.LocalizationString("menu_users")</a></li>
-                                <li><a href="/admin/feedbacks">@Html.LocalizationString("menu_feedbacks")</a></li>
-                                <li><a href="/admin/contactmessages">@Html.LocalizationString("menu_contactmessages")</a></li>
+                                <li><a href="/admin/users">@Html.Localize("menu_users")</a></li>
+                                <li><a href="/admin/feedbacks">@Html.Localize("menu_feedbacks")</a></li>
+                                <li><a href="/admin/contactmessages">@Html.Localize("menu_contactmessages")</a></li>
                                 <li class="divider"></li>
                             </ul>
                         </li>
@@ -43,13 +43,13 @@
                 }
             </ul>
             <div class="navbar-form navbar-left">
-                <input id="txtSearch" type="text" class="form-control col-lg-8" placeholder="@Html.LocalizationString("search")">
+                <input id="txtSearch" type="text" class="form-control col-lg-8" placeholder="@Html.Localize("search")">
                 <div id="dvSearchResults"></div>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/lang/change/tr"><img src="/public/img/flag/tr.png" alt="Türkçe" /></a></li>
                 <li><a href="/lang/change/en"><img src="/public/img/flag/en.png" alt="English"></a></li>
-                <li><a href="/home/contact">@Html.LocalizationString("menu_contact")</a></li>
+                <li><a href="/home/contact">@Html.Localize("menu_contact")</a></li>
 
                 @if (User.Identity.IsAuthenticated)
                 {
@@ -59,15 +59,15 @@
                             @User.Identity.GetFullName() <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/user/detail">@Html.LocalizationString("menu_user_profile")</a></li>
-                            <li><a href="/user/logout">@Html.LocalizationString("menu_user_logout")</a></li>
+                            <li><a href="/user/detail">@Html.Localize("menu_user_profile")</a></li>
+                            <li><a href="/user/logout">@Html.Localize("menu_user_logout")</a></li>
                         </ul>
                     </li>
                 }
                 else
                 {
-                    <li><a href="/user/login">@Html.LocalizationString("menu_login")</a></li>
-                    <li><a href="/user/new">@Html.LocalizationString("menu_signup")</a></li>
+                    <li><a href="/user/login">@Html.Localize("menu_login")</a></li>
+                    <li><a href="/user/new">@Html.Localize("menu_signup")</a></li>
                 }
 
             </ul>
@@ -83,13 +83,13 @@
         <footer style="padding: 3px;"><hr /><p>&copy; Argeset Yazılım</p></footer>
     </div>
 
-    <div id="feedback"><button class="btn btn-success" id="btnOpenFeedBack" data-toggle="modal" data-target="#modalFeedback">@Html.LocalizationString("btn_open_feedback_popup")</button></div>
+    <div id="feedback"><button class="btn btn-success" id="btnOpenFeedBack" data-toggle="modal" data-target="#modalFeedback">@Html.Localize("btn_open_feedback_popup")</button></div>
     <div class="modal fade" id="modalFeedback">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">@Html.LocalizationString("feedback_popup_title")</h4>
+                    <h4 class="modal-title">@Html.Localize("feedback_popup_title")</h4>
                 </div>
                 <div class="modal-body">
                     <div id="wrnFeedback"></div>
@@ -101,8 +101,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnCancelFeedback" name="btnCancelFeedback" class="btn btn-danger" data-dismiss="modal">@Html.LocalizationString("btn_cancel")</button>
-                    <button id="btnSaveFeedback" name="btnSaveFeedback" class="btn btn-success">@Html.LocalizationString("btn_save")</button>
+                    <button id="btnCancelFeedback" name="btnCancelFeedback" class="btn btn-danger" data-dismiss="modal">@Html.Localize("btn_cancel")</button>
+                    <button id="btnSaveFeedback" name="btnSaveFeedback" class="btn btn-success">@Html.Localize("btn_save")</button>
                 </div>
             </div>
         </div>
@@ -111,8 +111,8 @@
     <script src="//s.setcrm.com/js/jquery.2.1.0.js"></script>
     <script src="//s.setcrm.com/js/bootstrap.3.0.3.js"></script>
     <script>
-        var textNoResult = '@Html.LocalizationString("nothing_found")';
-        var textPleaseWait = '@Html.LocalizationString("please_wait")';
+        var textNoResult = '@Html.Localize("nothing_found")';
+        var textPleaseWait = '@Html.Localize("please_wait")';
     </script>
     <script src="/public/js/app.js?v=1"></script>
     @RenderSection("Script", false)

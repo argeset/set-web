@@ -1,7 +1,7 @@
 ﻿@model LoginModel
 
 @{
-    ViewBag.Title = Html.LocalizationString("login_view_title");
+    ViewBag.Title = Html.Localize("login_view_title");
 }
 
 <div class="row">
@@ -16,19 +16,19 @@
 
         <form id="frm" name="frm" action="/user/login?ReturnUrl=@Request.QueryString["ReturnUrl"]" method="post">
             <div class="form-group">
-                <label for="Email">@Html.LocalizationString("email")</label>
+                <label for="Email">@Html.Localize("email")</label>
                 <input type="email" id="Email" name="Email" class="form-control" required />
             </div>
 
             <div class="form-group">
-                <label for="Password">@Html.LocalizationString("password")</label>
+                <label for="Password">@Html.Localize("password")</label>
                 <input type="password" id="Password" name="Password" class="form-control" required />
             </div>
 
             @Html.AntiForgeryToken()
 
-            <button type="submit" class="btn btn-primary">@Html.LocalizationString("btn_login")</button>
-            <a style="margin-left: 10px;" href="/user/passwordreset">@Html.LocalizationString("forgot_your_password")</a>
+            <button type="submit" class="btn btn-primary">@Html.Localize("btn_login")</button>
+            <a style="margin-left: 10px;" href="/user/passwordreset">@Html.Localize("forgot_your_password")</a>
 
         </form>
 

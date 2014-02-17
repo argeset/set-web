@@ -1,7 +1,7 @@
 ﻿@model PageModel<DomainObjectModel>
 
 @{
-    ViewBag.Title = Html.LocalizationString("domainobject_listing_title");
+    ViewBag.Title = Html.Localize("domainobject_listing_title");
     const string link = "/domainobject/list";
 }
 
@@ -16,7 +16,7 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>@Html.LocalizationString("name")</th>
+                    <th>@Html.Localize("name")</th>
                 </tr>
             </thead>
             <tbody id="tbodyModelItems">
@@ -46,7 +46,7 @@
                                         }
                                     </ul>
                                     <br />
-                                    <span class="label label-primary">@Html.LocalizationString("total_page_count") : @Model.TotalPageCount</span>
+                                    <span class="label label-primary">@Html.Localize("total_page_count") : @Model.TotalPageCount</span>
                                 }
                             }
                         </div>
