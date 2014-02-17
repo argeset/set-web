@@ -16,10 +16,15 @@ namespace set.web.Controllers
             _feedbackService = feedbackService;
         }
 
-
         [HttpGet, AllowAnonymous]
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var id = User.Identity.GetId();
+                //todo: id ile user yoksa sigout...
+            }
+
             return View();
         }
 
