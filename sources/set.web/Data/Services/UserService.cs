@@ -118,7 +118,7 @@ namespace set.web.Data.Services
 
             if (saved)
             {
-                _msgService.SendEMail(user.Email, LocalizationHelper.LocalizationString("password_reset_email_subject"), string.Format(LocalizationHelper.LocalizationString("password_reset_email"), user.Email, token));
+                _msgService.SendEMail(user.Email, "password_reset_email_subject".Localize(), string.Format("password_reset_email".Localize(), user.Email, token));
             }
 
             return Task.FromResult(saved);
