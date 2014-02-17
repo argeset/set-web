@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 using set.web.Data.Services;
@@ -10,26 +11,46 @@ namespace set.web.Controllers
     public class HomeController : BaseController
     {
         private readonly IAuthService _authService;
+        private readonly IUserService _userService;
         private readonly IFeedbackService _feedbackService;
 
-        public HomeController(IAuthService authService, IFeedbackService feedbackService)
+        public HomeController(
+            IAuthService authService,
+            IUserService userService,
+            IFeedbackService feedbackService)
         {
             _authService = authService;
+            _userService = userService;
             _feedbackService = feedbackService;
 
         }
 
         [HttpGet, AllowAnonymous]
-        public ActionResult Index()
+        public async Task<ViewResult> Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated) return View();
+
+            try
             {
                 var id = User.Identity.GetId();
                 if (string.IsNullOrEmpty(id))
                 {
                     _authService.SignOut();
                 }
+                else
+                {
+                    var user = await _userService.Get(id);
+                    if (user == null)
+                    {
+                        _authService.SignOut();
+                    }
+                }
             }
+            catch
+            {
+                _authService.SignOut();
+            }
+
 
             return View();
         }
