@@ -9,11 +9,14 @@ namespace set.web.Controllers
 {
     public class HomeController : BaseController
     {
+        private readonly IAuthService _authService;
         private readonly IFeedbackService _feedbackService;
 
-        public HomeController(IFeedbackService feedbackService)
+        public HomeController(IAuthService authService, IFeedbackService feedbackService)
         {
+            _authService = authService;
             _feedbackService = feedbackService;
+
         }
 
         [HttpGet, AllowAnonymous]
@@ -22,7 +25,10 @@ namespace set.web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var id = User.Identity.GetId();
-                //todo: id ile user yoksa sigout...
+                if (string.IsNullOrEmpty(id))
+                {
+                    _authService.SignOut();
+                }
             }
 
             return View();
